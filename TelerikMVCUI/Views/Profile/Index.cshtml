@@ -1,0 +1,22 @@
+﻿@model IEnumerable<TelerikMVCUI.Models.ProfileModel>
+@using Telerik.Web.Mvc.UI
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@(Html.Telerik().Grid(Model)
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.ProfileId).Width(50);
+            columns.Bound(o => o.FirstName).Width(100).Sortable(true);
+            columns.Bound(o => o.LastName).Width(100).Sortable(false);
+            columns.Bound(o => o.DateOfBirth).Width(50);
+            columns.Bound(o => o.Email).Width(50);
+            
+        }).Pageable(p=>p.PageSize(2)).Sortable()
+)

@@ -1,0 +1,22 @@
+﻿@model AmarCodeGenerator.TableModel
+
+using EmployeeEnrollment.Application.@Model.OriginalTableName .Queries.Models;
+using MediatR;
+using System;
+using System.Collections.Generic;
+
+namespace EmployeeEnrollment.Application.@Model.OriginalTableName .Queries
+{
+    public static class Queries
+    {
+        public class @Model.GetListMethodName : IRequest< List< @Model.QueriesVMName>>
+        {
+            public Guid CompanyId { get; set; }
+        }
+
+        public class @Model.GetMethodName : IRequest< @Model.QueriesVMName>
+        {
+            public Guid Id { get; set; }
+        }
+    }
+}

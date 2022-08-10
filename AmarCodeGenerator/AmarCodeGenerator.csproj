@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{130BBEAD-7D82-4718-BD22-ABC75B9D332F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AmarCodeGenerator</RootNamespace>
+    <AssemblyName>AmarCodeGenerator</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ExternalDLL\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ExternalDLL\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.9.3.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.9.3\lib\net40\RazorEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessLayer.cs" />
+    <Compile Include="ClassGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClassGenerator.Designer.cs">
+      <DependentUpon>ClassGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommonTask.cs" />
+    <Compile Include="ControllerLayer.cs" />
+    <Compile Include="DataContextLayer.cs" />
+    <Compile Include="FrmClassSP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmClassSP.Designer.cs">
+      <DependentUpon>FrmClassSP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmConnection.Designer.cs">
+      <DependentUpon>FrmConnection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLogin.Designer.cs">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ColumnModel.cs" />
+    <Compile Include="Repository.cs" />
+    <Compile Include="SessionUtility.cs" />
+    <Compile Include="SqlDbTypeToDbType.cs" />
+    <Compile Include="StoreProcedure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StoreProcedureLayer.cs" />
+    <Compile Include="TableModel.cs" />
+    <Compile Include="UIAspxLayer.cs" />
+    <Compile Include="UILayer.cs" />
+    <Compile Include="XHRAngular.cs" />
+    <Compile Include="XHRCommand.cs" />
+    <EmbeddedResource Include="ClassGenerator.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ClassGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmClassSP.resx">
+      <DependentUpon>FrmClassSP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmConnection.resx">
+      <DependentUpon>FrmConnection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLogin.resx">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="ExternalDLL\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+    <Content Include="ExternalDLL\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
+    <Content Include="ExternalDLL\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" />
+    <Content Include="ExternalDLL\Microsoft.Practices.EnterpriseLibrary.Logging.dll" />
+    <Content Include="ExternalDLL\Microsoft.Practices.ObjectBuilder2.dll" />
+    <Content Include="ExternalDLL\Microsoft.Practices.Unity.dll" />
+    <Content Include="Templates\Angular\Model.html" />
+    <Content Include="Templates\ChangePass.html" />
+    <Content Include="Templates\ConsignmentInventoryCount.html" />
+    <Content Include="Templates\XHRConfiguration.html" />
+    <Content Include="Templates\XHRController.html" />
+    <Content Include="Templates\XHRGetListQueryHandler.html" />
+    <Content Include="Templates\XHRGetQueryHandler.html" />
+    <Content Include="Templates\XHRQueries.html" />
+    <Content Include="Templates\XHRQueriesModelVM.html" />
+    <Content Include="Templates\XHRUpdateCommandHandler.html" />
+    <Content Include="Templates\XHRMarkAsDeleteCommandHandler.html" />
+    <Content Include="Templates\XHRCreateCommandHandler.html" />
+    <Content Include="Templates\XHRCommandVMTemplate.html" />
+    <Content Include="Templates\XHRCommandTemplate.html" />
+    <Content Include="Templates\XHRModelTemplate.html" />
+    <Content Include="Templates\SparkListUI_ASPX.html" />
+    <Content Include="Templates\DCSparkTemplate.html" />
+    <Content Include="Templates\DataContextTemplate.html" />
+    <Content Include="Templates\ForgetPass.html" />
+    <Content Include="Templates\Repository.html" />
+    <Content Include="Templates\ModelTemplateDataAnnotation.html" />
+    <Content Include="Templates\IReposotories.html" />
+    <Content Include="Templates\ResetPassword.html" />
+    <Content Include="Templates\ModelTemplate.html" />
+    <Content Include="Templates\UsageOrderPlace.html" />
+    <Content Include="Templates\UsageOrderPlacePOAssign.html" />
+    <Content Include="Templates\UsageOrderPlaceWPO.html" />
+    <Content Include="XHRGetListQueryHandler.html" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

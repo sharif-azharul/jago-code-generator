@@ -1,0 +1,94 @@
+﻿@using Telerik.Web.Mvc.UI
+@model AmarSomoy.Models.ViewModel.SearchProfileModel
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<p style="text-align:right;">
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<fieldset>
+    <legend>Search Profile</legend>
+    <table style="width:100%;">
+        <tr>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.FirstName)
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.FirstName)
+                    @Html.ValidationMessageFor(model => model.FirstName)
+                </div>
+            </td>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.LastName)
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.LastName)
+                    @Html.ValidationMessageFor(model => model.LastName)
+                </div>
+            </td>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DoB)
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DoB)
+                    @Html.ValidationMessageFor(model => model.DoB)
+                </div>
+            </td>
+            <td>
+                <p>
+                    <input type="submit" value="Search" id="btnSearch" />
+                </p>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+
+@(Html.Telerik().Grid<AmarSomoy.Models.ProfileModel>()
+    .Name("Grid")
+    .Columns(colums =>
+    {
+        colums.Bound(c => c.ProfileId).ClientTemplate(
+          Html.ActionLink("<#= ProfileId #>", "Edit", "Profile", new { pCode = "<#= ProfileCode #>" }, null).ToString()
+
+     );
+        colums.Bound(c => c.FirstName);
+        colums.Bound(c => c.LastName);
+        colums.Bound(c => c.Address);
+        colums.Bound(c => c.DateOfBirth);
+        colums.Bound(c => c.MobileNo);
+        colums.Bound(c => c.EmailId);
+    }).DataBinding(d => d.Ajax().Select("ListProfileAjax", "Profile"))
+//        .DataBinding(d => d.Ajax().Select(MVC.Member.ListAjax(Model).GetRouteValueDictionary()))
+)
+
+@section Scripts {
+<script type="text/javascript">
+            $(document).ready(function () {
+                $('#btnSearch').click(function () {
+                    var grid = $('#Grid').data('tGrid');
+                    var searchModel = {
+                        FirstName: $('#FirstName').val(),
+                        LastName: $('#LastName').val(),
+                        DoB: $('#DoB').val()
+                        //Active: $('#Active').is(':checked')
+                    };
+                    grid.rebind(searchModel);
+                    return false;
+                });
+            });
+</script>
+}

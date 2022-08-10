@@ -1,0 +1,77 @@
+﻿@using Microsoft.AspNet.Identity
+@using Telerik.Web.Mvc.UI
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+    @Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.telerik.css").Combined(true).Compress(true))
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("AMAR SAMAY", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+            </div>
+            <div style="text-align: right;">
+                @Html.Partial("_LoginPartial")
+            </div>
+            <div style="text-align: left; margin-bottom:10px; clear: left;">
+
+                @if (Request.IsAuthenticated)
+                {
+                    @(Html.Telerik().Menu()
+               .Name("TopMenu")
+               .Orientation(MenuOrientation.Horizontal)
+               .Items(menu =>
+               {
+                   menu.Add().Text("Company").Action("Index", "Company");
+                   menu.Add().Text("Project").Action("Index", "Project");
+                   menu.Add().Text("Profile").Action("Index", "Profile");
+                   menu.Add().Text("Task").Action("Index", "Task");
+                   menu.Add().Text("Report").Items(submenu =>
+                   {
+                       submenu.Add().Text("Report").Action("Report", "Task");
+                       submenu.Add().Text("Weekly").Action("WeeklyReport", "Task");
+                       submenu.Add().Text("Monthly").Action("MonthlyReport", "Task");
+                   });
+               })
+               .HighlightPath(true)
+               .ItemAction(item =>
+               {
+                   if (item.Selected)
+                       item.HtmlAttributes["class"] = "t-state-selected";
+               })
+                    )
+                }
+            </div>*
+        </div>
+    </div>
+    <div class="container body-content">
+        @Html.Partial("_Alerts")
+
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - AMAR SAMAY</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/toastr.js"></script>
+    @Html.Telerik().ScriptRegistrar().DefaultGroup(group => group.Combined(true).Compress(true))
+    @RenderSection("scripts", required: false)
+</body>
+</html>

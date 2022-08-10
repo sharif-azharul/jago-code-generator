@@ -1,0 +1,30 @@
+﻿@model AmarCodeGenerator.TableModel
+
+using ASL.Hrms.Application.@Model.OriginalTableName .Queries.Models;
+using Dapper;
+using MediatR;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace ASL.Hrms.Application.@Model.OriginalTableName .Queries
+{
+    public class @Model.GetListQueryHandlerName : IRequestHandler< Queries. @Model.GetListMethodName, List< @Model.QueriesVMName>>
+    {
+        public @Model.GetListQueryHandlerName (DbConnection connection)
+        {
+            _connection = connection;
+        }
+        private readonly DbConnection _connection;
+
+        public async Task< List< @Model.QueriesVMName>> Handle(Queries.@Model.GetListMethodName request, CancellationToken cancellationToken)
+        {
+            var query = $"SELECT * from public. @Model.GetDBFunctionName ({request.CompanyId})";;
+
+            var data = await _connection.QueryAsync< @Model.QueriesVMName>(query);
+            return data.ToList();
+        }
+    }
+}

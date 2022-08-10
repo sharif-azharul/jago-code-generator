@@ -1,0 +1,10 @@
+﻿@using Telerik.Web.Mvc.UI
+
+@( Html.Telerik().DropDownList()
+       .Name("CompanyCode")
+       .Placeholder("Select Company...")
+       .BindTo((IEnumerable<SelectListItem>
+    )ViewBag.CompanyList)
+    .CascadeTo("ComboBox_Projects")
+        .SelectedIndex(0)
+)

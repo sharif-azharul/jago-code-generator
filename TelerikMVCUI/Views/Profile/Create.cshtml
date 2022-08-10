@@ -1,0 +1,210 @@
+﻿@model TelerikMVCUI.Models.ProfileModel
+
+@{
+    ViewBag.Title = "PROFILE CREATE";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <h3 class="bg-primary table_hdr text-center">PROFILE CREATE</h3>
+    <div class="row table_wrapper">
+        <div class="box">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary(true)
+
+                <div id="content">
+
+                </div>
+
+                @*<div class="form-horizontal">*@
+                <div class="box-header">
+                    <div class="row form-group">
+
+                        <div class="col-md-4">
+                            <div>
+                                @Html.LabelFor(model => model.ProfileId)
+                            </div>
+                            @Html.EditorFor(model => model.ProfileId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ProfileId)
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                @Html.LabelFor(model => model.FirstName)
+                            </div>
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FirstName)
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                @Html.LabelFor(model => model.LastName)
+                            </div>
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LastName)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-4">
+                            <div>
+                                @Html.LabelFor(model => model.DateOfBirth)
+                            </div>
+                            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DateOfBirth)
+                        </div>
+                            <div class="col-md-4">
+                                <div>
+                                    @Html.LabelFor(model => model.Email)
+                                </div>
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                        <div class="col-md-4">
+                            <div>
+                                @Html.LabelFor(model => model.IsActive)
+                            </div>
+                            @Html.EditorFor(model => model.IsActive, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.IsActive)
+                        </div>
+                        </div>
+                    <div class="form-group row">
+                        <div class="col-md-4">@Html.ActionLink("Back to List", "Index", "EmailNotifyEvents", htmlAttributes: new { @class = "btn btn-success" })</div>
+                        <div class="col-md-8" style="text-align:right">
+                            <input type="button" value="Create" id="AjaxPost" class="btn btn-success" />
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            }
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#AjaxPost").click(function () {
+                $("#content").html("<b>Please Wait...</b>");
+                var dataObject = {
+                    EmailAddressTo: $("#EmailAddressTo").val(),
+                    NotifyEventsId: $("#NotifyEventsId").val(),
+                    EnrollmentId: $("#ddlEnrollment").val(),
+                    IsInternal: false,
+                    FirstName: $("#FirstName").val(),
+                    LastName: $("#LastName").val(),
+                    EmailAddressCC: $("#EmailAddressCC").val()
+                };
+                $.ajax({
+                    url: "@Url.Action("Create", "NotifyEmails")",
+                    type: "POST",
+                    data: dataObject,
+                    dataType: "json",
+                    success: function (data) {
+                        upass_custom_alert(data, "Success");
+                    },
+                    error: function (xhr, httpStatus, msg) {
+                        upass_custom_alert("Error! Please try again", "Error");
+                    }
+                });
+            });
+            $('#IsInternal').change(function () {
+                if ($(this).is(":checked")) {
+                    if ($("#EmailAddressTo").val() == '') {
+                        alert("Please enter email address first for internal user");
+                        return;
+                    }
+                    $.ajax({
+                        url: "@Url.Action("GetUserById", "NotifyEmails")",
+                        type: "POST",
+                        data: { EmailAddressTo: $("#EmailAddressTo").val() },
+                        dataType: "json",
+                        success: function (data) {
+                            $('#FirstName').val(data.FirstName);
+                            $('#LastName').val(data.LastName);
+                        },
+                        error: function (xhr, httpStatus, msg) {
+                            $('#FirstName').val('');
+                            $('#LastName').val('');
+                        }
+                    });
+                }
+                else {
+                    $('#FirstName').val('');
+                    $('#LastName').val('');
+                }
+
+            });
+
+            $('#EmailAddressTo').change(function () {
+                if ($('#IsInternal').is(":checked")) {
+                    if ($("#EmailAddressTo").val() == '') {
+                        alert("Please enter email address first for internal user");
+                        return;
+                    }
+                    $.ajax({
+                        url: "@Url.Action("GetUserById", "NotifyEmails")",
+                        type: "POST",
+                        data: { EmailAddressTo: $("#EmailAddressTo").val() },
+                        dataType: "json",
+                        success: function (data) {
+                            $('#FirstName').val(data.FirstName);
+                            $('#LastName').val(data.LastName);
+                        },
+                        error: function (xhr, httpStatus, msg) {
+                            $('#FirstName').val('');
+                            $('#LastName').val('');
+                        }
+                    });
+                }
+                else {
+                    $('#FirstName').val('');
+                    $('#LastName').val('');
+                }
+
+            });
+
+            function upass_custom_alert(output_msg, title_msg) {
+                if (!title_msg)
+                    title_msg = 'Alert';
+                if (output_msg.indexOf('successfully') == -1)
+                    title_msg = 'Validation';
+                if (!output_msg)
+                    output_msg = 'No Message to Display.';
+
+                $("<div></div>").html(output_msg).dialog({
+                    title: title_msg,
+                    resizable: false,
+                    modal: true,
+                    buttons: {
+                        "Ok": function () {
+                            if (output_msg.indexOf('successfully') >= 0) {
+                                window.location = '@Url.Action("Index", "NotifyEmails")'; //"/NotifyEmails/Index";
+                            }
+                            $(this).dialog("close");
+                        }
+                    }
+                }).addClass("alert alert-success fade in");
+
+
+            }
+        })
+    </script>
+}
+
+
+
+

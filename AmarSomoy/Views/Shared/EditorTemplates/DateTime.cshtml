@@ -1,0 +1,9 @@
+﻿@model DateTime?
+@using Telerik.Web.Mvc.UI
+
+@(Html.Telerik().DateTimePicker()
+        .Name(ViewData.TemplateInfo.HtmlFieldPrefix)
+        .HtmlAttributes(new { id = ViewData.TemplateInfo.HtmlFieldPrefix + DateTime.Now.Millisecond.ToString() })
+        .Value(Model > DateTime.MinValue ? Model : DateTime.Now)
+)
+

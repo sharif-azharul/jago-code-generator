@@ -1,0 +1,19 @@
+﻿@model IEnumerable<MVC.GRID.Models.ClientModel>
+@using GridMvc.Html
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+
+@Html.Grid(Model).Named("ClientGrid").Columns(columns =>
+{
+    columns.Add(foo => foo.Id).Titled("Client Id");
+    columns.Add(foo => foo.FirstName).Titled("First Name").Sortable(true).Filterable(true);
+    columns.Add(foo => foo.LastName).Titled("Last Name").Sortable(true).Filterable(true);
+    columns.Add(foo => foo.Email).Titled("Email Address").Sortable(true);
+}).WithPaging(2)

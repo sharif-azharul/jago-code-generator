@@ -1,0 +1,58 @@
+﻿@model AmarCodeGenerator.TableModel
+
+using EmployeeEnrollment.Core.Interfaces;
+using MediatR;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using EmployeeEntities = EmployeeEnrollment.Core.Entities;
+
+namespace EmployeeEnrollment.Application.@Model.OriginalTableName .Commands
+{
+    public class CreateCommandHandler : IRequestHandler< Commands.V1. @Model.CreateCommandName, @Model.CommandVMName>
+    {
+    public CreateCommandHandler (IAsyncRepository< EmployeeEntities. @Model.OriginalTableName,Guid>
+    repository)
+    {
+    _repository = repository;
+    }
+
+    private readonly IAsyncRepository< EmployeeEntities. @Model.OriginalTableName,Guid>
+    _repository;
+
+    public async Task< @Model.CommandVMName> Handle(Commands.V1. @Model.CreateCommandName request, CancellationToken cancellationToken)
+    {
+    var response = new @Model.CommandVMName
+    {
+    Status = false,
+    Message = "error"
+    };
+
+    try
+    {
+    var entity = EmployeeEntities. @Model.OriginalTableName .Create (
+    @foreach(var property in Model.PropetyList)
+    {
+    if(@property.IsSkippable==false)
+    {
+    <text>         request. @property.SYSName, </text>
+    }
+    }
+
+
+    );
+    var data = await _repository.AddAsync(entity);
+
+    response.Status = true;
+    response.Message = "entity created successfully.";
+    response.Id = entity.Id;
+    }
+    catch(Exception ex)
+    {
+    response.Message = ex.Message;
+    }
+
+    return response;
+    }
+    }
+    }

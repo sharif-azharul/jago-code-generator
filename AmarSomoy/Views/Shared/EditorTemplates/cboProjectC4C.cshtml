@@ -1,0 +1,9 @@
+﻿
+@using Telerik.Web.Mvc.UI
+
+@( Html.Telerik().ComboBox()
+        .Name("Projects")
+        .DataBinding(binding => binding.Ajax().Select("_GetComboBoxProjects", "Project"))
+        .Placeholder("Select Project...")
+        .SelectedIndex(0)
+)

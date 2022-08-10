@@ -1,0 +1,156 @@
+﻿@using Telerik.Web.Mvc.UI
+@model AmarSomoy.Models.ViewModel.SearchTaskModel
+
+@{
+    ViewBag.Title = "Weekly Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<fieldset>
+    <legend>Search Tasks</legend>
+    <table style="width:100%;">
+        <tr>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ProjectCode)
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.DropDownListFor(model => model.ProjectCode, ViewBag.ProjectList as IEnumerable<SelectListItem>, "Select...", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ProjectCode)
+                </div>
+            </td>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.StartTime)
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.StartTime)
+                    @Html.ValidationMessageFor(model => model.StartTime)
+                </div>
+            </td>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.EndTime)
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.EndTime)
+                    @Html.ValidationMessageFor(model => model.EndTime)
+                </div>
+            </td>
+            <td>
+                <p>
+                    <input type="submit" value="Search" id="btnSearch" />
+                </p>
+
+                <p>
+                    <input type="submit" value="Report" id="btnReport" />
+                </p>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+
+@(Html.Telerik().Grid<AmarSomoy.Models.ViewModel.TaskViewModel>()
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.TaskDescription).ClientTemplate(
+        Html.ActionLink("<#= TaskDescription #>", "Edit", "Task", new { pId = "<#= TaskId #>" }, null).ToString()
+
+   );
+        columns.Bound(c => c.StartTime);
+        columns.Bound(c => c.EndTime);
+        columns.Bound(c => c.WorkingHour);
+        columns.Bound(c => c.ProjectName);
+
+    }).DataBinding(d => d.Ajax().Select("MonthlyReportTaskAjax", "Task", new { IsFistLoad = true }))
+    .Pageable()
+)
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#btnSearch').click(function () {
+                var grid = $('#Grid').data('tGrid');
+                var searchModel = {
+                    ProjectCode: $('#ProjectCode').val(),
+                    StartTime: $('#StartTime').val(),
+                    EndTime: $('#EndTime').val()
+                    //Active: $('#Active').is(':checked')
+                };
+                grid.rebind({ search: searchModel, IsFistLoad: false });
+                return false;
+            });
+
+            $('#btnReport').click(function () {
+                $.ajax({
+                    url: "@Url.Action("SendReport", "Task")",
+                    type: "POST",
+                    data: {},
+                    dataType: "json",
+                    success: function (data) {
+                    },
+                    error: function (xhr, httpStatus, msg) {
+                    }
+                });
+
+                return false;
+            });
+
+            @*$("#btnReport").click(function () {
+
+                var dataObject = {
+                    EmailAddressTo: $("#EmailAddressTo").val(),
+                    NotifyEventsId: $("#NotifyEventsId").val(),
+                    EnrollmentId: $("#ddlEnrollment").val(),
+                    IsInternal: false,
+                    FirstName: $("#FirstName").val(),
+                    LastName: $("#LastName").val(),
+                    EmailAddressCC: $("#EmailAddressCC").val()
+                };
+                $.ajax({
+                    url: "@Url.Action("Create", "NotifyEmails")",
+                    type: "POST",
+                data: dataObject,
+                dataType: "json",
+                success: function (data) {
+                    upass_custom_alert(data, "Success");
+                },
+                error: function (xhr, httpStatus, msg) {
+                    upass_custom_alert("Error! Please try again", "Error");
+                }
+            });
+        });*@
+
+        });
+        function checkboxClicked(checkBox) {
+            var dataObject = {
+                TaskId: checkBox.value,
+                IsSelected: checkBox.checked
+            };
+            $.ajax({
+                url: "@Url.Action("UpdateSession", "Task")",
+                type: "POST",
+                data: dataObject,
+                dataType: "json",
+                success: function (data) {
+                    //upass_custom_alert(data, "Success");
+                },
+                error: function (xhr, httpStatus, msg) {
+                    //upass_custom_alert("Error! Please try again", "Error");
+                }
+            });
+
+        }
+
+    </script>
+}

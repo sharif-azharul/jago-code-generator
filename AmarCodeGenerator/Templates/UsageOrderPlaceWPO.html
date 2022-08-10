@@ -1,0 +1,103 @@
+﻿@model UPASS.BTX.Model.ConsignmentUsageOrderModel
+
+<style type="text/css">
+    #tbody tr:nth-child(even) {
+        background-color: #e5e6c9;
+    }
+</style>
+
+    <div id="MainDiv" style="  padding: 10px; width: 98%;  margin:  auto; font-family:verdana, sans-serif;font-size:10pt;">
+        <!--<div id="TitleDiv" style="background-color: #6666ff; border-top-left-radius: 10px; border-top-right-radius: 10px; padding: 1px 1px !important;">
+            <div style="font-weight: bold; font-size: 20px; color: white; text-align: center; padding: 1px 1px !important;">An order has been submitted!</div>
+        </div>-->
+        <!--End title div-->
+        <div id="OrderDiv" style="color: black; background-color: white;   padding: 20px; font-family:verdana, sans-serif;font-size:10pt;">
+            <div style="border:hidden">
+                <div style="width:100%;background-color:red;color:white;font-weight: bold; font-family:verdana, sans-serif;font-size:10pt;">Order details:</div>
+                <table style="width:100%;">
+                    <tr>
+                        <td style="width: 65%">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="font-family:verdana, sans-serif;font-size:10pt;"><b>Temp. Order No :</b></td>
+                                    <td style="font-family:verdana, sans-serif;font-size:10pt;">@Model.OrderNo</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:verdana, sans-serif;font-size:10pt;"><b>Submitted date :</b></td>
+                                    <td style="font-family:verdana, sans-serif;font-size:10pt;">@Model.OrderDate</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:verdana, sans-serif;font-size:10pt;"><b>Submitted by :</b></td>
+                                    <td style="font-family:verdana, sans-serif;font-size:10pt;">@Model.CreateUser</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:verdana, sans-serif;font-size:10pt;"><b>Order Status :</b></td>
+                                    <td style="font-family:verdana, sans-serif;font-size:10pt;"><b>Pending</b></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:verdana, sans-serif;font-size:10pt;"><b>Location :</b></td>
+                                    <td style="font-family:verdana, sans-serif;font-size:10pt;">@Model.LocationId- @Model.LocationName</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 35%; border-left:solid;border-width:2px; padding-left:5px;top:5px;">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="font-family:verdana, sans-serif;font-size:10pt;"><b>Billing Address :</b></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:verdana, sans-serif;font-size:10pt;">@Model.ShippingAddress</td>
+                                </tr>
+                            </table>
+                        </td>
+
+                    </tr>
+
+
+                </table>
+            </div>
+            <div id="OrderLineDiv"  style="font-family:verdana, sans-serif;font-size:10pt;padding: 20px 0;">
+                <div style="border:hidden">
+                    <div s style="font-family:verdana, sans-serif;font-size:10pt;width:100%;background-color:red;color:white; font-weight: bold;">
+                        Line Items :
+                    </div>
+                    <table id="LineTable"  style="font-family:verdana, sans-serif;font-size:10pt;width:100% ;">
+                        <thead style="background-color: black; color: white;font-weight: bold;">
+                            <tr>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;">Item ID</td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;">Item Name</td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;">Note</td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt; text-align: right;">Quantity</td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt; text-align: right;">Unit price</td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt; text-align :center;">UoM</td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt; text-align: right;">Total Price</td>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                            @foreach (var item in Model.UsageOrderItemList)
+                            {
+
+                            <tr>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;">@item.BtxItemId</td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;">@item.ItemName</td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;">@item.JobNote</td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt; text-align :right;">@item.Quantity </td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt; text-align :right;">@string.Format("{0:C2}", @item.UnitPrice)</td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt; text-align :center;">@item.ItemUnit</td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt; text-align: right;">@string.Format("{0:C2}", @item.TotalPrice)</td>
+                            </tr>
+                            }
+
+
+                            <tr style="background-color: black; color: white; height: 25px; font-weight: bold;">
+                                <td colspan="5" style="font-family:verdana, sans-serif;font-size:10pt; text-align :right;">Total Price</td>
+                                <td colspan="2" id="totalprice" style="font-family:verdana, sans-serif;font-size:10pt; text-align: right;">@string.Format("{0:C2}", @Model.GrandTotalPrice)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--End Line div-->
+        </div>
+    </div>
+

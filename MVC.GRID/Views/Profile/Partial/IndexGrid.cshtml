@@ -1,0 +1,12 @@
+﻿@using GridMvc.Html
+@using GridMvc.Sorting
+@model Grid.Mvc.Ajax.GridExtensions.AjaxGrid<MVC.GRID.Models.ProfileModel>
+
+@Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(c => c.ProfileId);
+    columns.Add(c => c.FirstName);
+    columns.Add(c => c.LastName);
+    columns.Add(c => c.DateOfBirth);
+    columns.Add(c => c.Email);
+}).Sortable(true).WithPaging(10)

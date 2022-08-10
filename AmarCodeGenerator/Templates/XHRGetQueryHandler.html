@@ -1,0 +1,33 @@
+﻿@model AmarCodeGenerator.TableModel
+
+using EmployeeEnrollment.Application.@Model.OriginalTableName .Queries.Models;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Dapper;
+
+namespace EmployeeEnrollment.Application.@Model.OriginalTableName .Queries
+{
+    public class @Model.GetQueryHandlerName : IRequestHandler< Queries. @Model.GetMethodName, @Model.QueriesVMName>
+    {
+    public @Model.GetQueryHandlerName (DbConnection connection)
+    {
+    _connection = connection;
+    }
+    private readonly DbConnection _connection;
+
+    public async Task< @Model.QueriesVMName>
+        Handle(Queries. @Model.GetMethodName request, CancellationToken cancellationToken)
+        {
+        var query = $"SELECT * from public. @Model.GetDBFunctionName ({request.Id})";
+
+        var data = await _connection.QueryFirstAsync< @Model.QueriesVMName>
+            (query);
+            return data;
+            }
+            }
+            }

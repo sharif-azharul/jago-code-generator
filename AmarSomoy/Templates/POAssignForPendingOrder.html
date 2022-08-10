@@ -1,0 +1,108 @@
+﻿@model UPASS.BTX.Model.ConsignmentUsageOrderModel
+
+<style type="text/css">
+    #tbody tr:nth-child(even) {
+        background-color: #e5e6c9;
+    }
+</style>
+
+<div id="MainDiv" style="border: solid 1px #6666ff; border-radius: 10px; padding-left: 0px; width: 600px; padding-right: 0px; margin: auto;">
+    <div id="TitleDiv" style="background-color: #6666ff; border-top-left-radius: 10px; border-top-right-radius: 10px; padding: 1px 1px !important;">
+        <div style="font-weight: bold; font-size: 20px; color: white; text-align: center; padding: 1px 1px !important;">A PO number has been assigned to an Order by @Model.PoAssignBy</div>
+    </div>
+    <!--End title div-->
+    <div id="OrderDiv" style="color: #468847; background-color: #dff0d8; border-color: #d6e9c6; padding: 20px">
+        <fieldset>
+            <div>Order details:</div>
+            <table>
+                <tr>
+                    <td style="width: 50%">
+                        <table>
+                            <tr>
+                                <td>Order No :</td>
+                                <td>@Model.OrderNo</td>
+                            </tr>
+                            <tr>
+                                <td>Order submitted date :</td>
+                                <td>@Model.OrderDate</td>
+                            </tr>
+                            <tr>
+                                <td>Submitted by :</td>
+                                <td>@Model.CreateUser</td>
+                            </tr>
+                            <tr>
+                                <td>PO Number :</td>
+                                <td>@Model.PurchaseOrderNo</td>
+                            </tr>
+                            <tr>
+                                <td>PO assigned date :</td>
+                                <td>@Model.OrderDate</td>
+                            </tr>
+                            <tr>
+                                <td>PO assigned by :</td>
+                                <td>@Model.PoAssignBy</td>
+                            </tr>
+                            <tr>
+                                <td>Location ID :</td>
+                                <td>@Model.LocationName(@Model.LocationId)</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="width: 50%; border-left:solid;border-width:2px; padding-left:5px;top:5px;">
+                        <table>
+                            <tr>
+                                <td>Shipping Address :</td>
+                            </tr>
+                            <tr>
+                                <td>@Model.ShippingAddress</td>
+                            </tr>
+                        </table>
+                    </td>
+
+                </tr>
+
+
+            </table>
+        </fieldset>
+        <div id="OrderLineDiv" style="padding-top: 20px; padding-bottom: 20px;">
+            <fieldset>
+                <legend>Line Items: </legend>
+                <table id="LineTable" style="width:100% ">
+                    <thead style="background-color: #8989f7; color: white;">
+                        <tr>
+                            <td>Item ID</td>
+                            <td>Item Name</td>
+                            <td>Note</td>
+                            <td>Quantity</td>
+                            <td>Unit price</td>
+                            <td>UoM</td>
+                            <td>Total Price</td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        @foreach (var item in Model.UsageOrderItemList)
+                        {
+                        <tr>
+                            <td>@item.BtxItemId</td>
+                            <td>@item.ItemName</td>
+                            <td>@item.JobNote</td>
+                            <td style="text-align: right;">@string.Format("{0:#0.00}", @item.Quantity) </td>
+                            <td style="text-align: right;">@string.Format("{0:#0.00}", @item.UnitPrice)</td>
+                            <td>@item.UnitOfMeasure</td>
+                            <td class="totPrice" style="text-align: right;">@string.Format("{0:#0.00}", @item.TotalPrice)</td>
+                        </tr>
+                        }
+                    </tbody>
+                    <tfoot style="background-color: #8989f7; color: white; height: 25px; font-weight: bold;">
+                        <tr>
+                            <td colspan="5" style="text-align: right;">Total Price</td>
+                            <td id="totalprice" style="text-align: right;">$ @string.Format("{0:#0.00}", @Model.GrandTotalPrice)</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </fieldset>
+        </div>
+        <!--End Line div-->
+    </div>
+</div>
+

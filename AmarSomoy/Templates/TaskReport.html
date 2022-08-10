@@ -1,0 +1,78 @@
+﻿@model AmarSomoy.Models.ViewModel.TaskReportViewModel
+
+<style type="text/css">
+    #tbody tr:nth-child(even) {
+        background-color: #e5e6c9;
+    }
+</style>
+
+    <div id="MainDiv" style="font-family:verdana, sans-serif;font-size:10pt; padding :10px; width: 98%; margin: auto;">
+    
+    <div id="TaskDiv" style="color: black; background-color: white;   padding: 20px">
+        <div style="border:hidden">
+            
+            <table style="width:100%;">
+                <tr>
+                    <td style="width: 65%">
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="width:40%;font-family:verdana, sans-serif;font-size:10pt;"><b>Task Owner :</b></td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;">@Model.profile.FirstName @Model.profile.LastName</td>
+                            </tr>
+                            <tr>
+                                <td style="width:40%;font-family:verdana, sans-serif;font-size:10pt;"><b>Mobile No :</b></td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;">@Model.profile.MobileNo</td>
+                            </tr>
+                            <tr>
+                                <td style="width:40%;font-family:verdana, sans-serif;font-size:10pt;"><b>email address :</b></td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;">@Model.profile.EmailId</td>
+                            </tr>
+                        </table>
+                    </td>
+
+                </tr>
+
+
+            </table>
+        <div id="TaskLineDiv" style="padding: 20px 0;">
+            <div style="border:hidden">
+                <div  style ="font-family:verdana, sans-serif;font-size:10pt;width:100%;background-color:darkseagreen;color:white; font-weight: bold;">
+                    Tasks :
+                </div>
+                <table id="LineTable" style="width:100% ;">
+                    <thead style="background-color: darkseagreen; color: white;font-weight: bold;">
+                        <tr>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">Task Description</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">Date</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">Start Time</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">End Time</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">Working Time</td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        @foreach (var item in Model.tasks)
+                        {
+                        
+                        <tr style=@item.trColor>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">@item.TaskDescription</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">@item.StartTime.ToString("dd/MM/yyyy")</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">@item.StartTime.ToString("hh:mm:ss")</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">@item.EndTime.ToString("hh:mm:ss")</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">@item.WorkingHour</td>
+                            
+                        </tr>
+                        }
+
+
+                        <tr style="background-color: darkseagreen; color: white; height: 25px; font-weight: bold;">
+                            <td colspan="4" style="font-family:verdana, sans-serif;font-size:10pt; text-align: right;">Total Time</td>
+                            <td colspan="1" id="totaltime" style="font-family:verdana, sans-serif;font-size:10pt;">@Model.TotalWorkingHour</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--End Line div-->
+    </div>
+</div>
+

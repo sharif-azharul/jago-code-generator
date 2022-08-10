@@ -1,0 +1,184 @@
+﻿@model AmarCodeGenerator.TableModel
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using StoreAndInventory.Data.DAL;
+using AmarDBHelper;
+using System.Data;
+using StoreAndInventory.Data.Model;
+
+namespace StoreAndInventory.Data
+{
+    public class @Model.DotNetDataContextName : Connection_DAL
+    {
+        private string vSAVESUCCESS = "Data Saved Successfully.";
+        private string vSAVEFAIL = "Data Not Saved.";
+        private string vDELETESUCCESS = "Data Deleted Successfully.";
+        private string vDELETEFAIL = "Data Not Deleted.";
+        #region Public Methods
+@{      <text>    public string @Model.MethodSaveName (@Model.DotNetModelName @Model.ObjectName )</text>}
+                    {
+            @{<text>   string sqlCommand = "@Model.SPSaveName";</text>}
+
+                        using(AdoHelper db = new AdoHelper(base.ConnectionString))
+                                {
+    @{int j=Model.PropetyList.Count;}
+                                    try
+                                    {
+                                    string[] Params = new string[@j];
+                                    db.BeginTransaction();
+                                    @{int i=0;}
+                                    @foreach(var property in Model.PropetyList)
+                                    {
+                                    if(@property.IsSkippable==false)
+                                    {
+                                    <text>  Params[@i] = db.CreateParameter("[[P]]@(property.DBName)", @Model.ObjectName.@property.SYSName, DbType.@property.SYSType);</text>
+                                    i++;
+                                    }
+                                    }
+                                    int result = db.PrepSPToNonQuery(sqlCommand, Params);
+                                    db.CloseTransaction();
+                                    if (result > 0)
+                                    {
+                                    if (result > 0)
+                                    {
+                                    return vSAVESUCCESS;
+                                    }
+                                    else
+                                    {
+                                    db.Rollback();
+                                    return vSAVEFAIL;
+                                     }
+                                 }
+                               }
+                               catch (Exception ex)
+                                    {
+                                    db.Rollback();
+                                    throw new Exception(ex.Message);
+                                    }
+                                    return vSAVESUCCESS;
+                                }
+                            }
+  @{var pp = Model.PropetyList.FirstOrDefault(c => c.IsPrimayKey == true);}
+  @{      <text>    public @Model.DotNetModelName @Model.MethodGetByKeyName ( @pp.DBType p@(pp.SYSName))</text>}
+                            {
+                            @Model.DotNetModelName @Model.ObjectName = new @Model.DotNetModelName ();
+                            using (AdoHelper db = new AdoHelper(base.ConnectionString))
+                            {
+                            string sqlCommand = "@Model.SPGetByKeyName";
+    
+                            string[] Params = new string[1];
+                            @{      <text>    Params[0] = db.CreateParameter("[[P]]@pp.SYSName", p@(pp.SYSName), DbType.@pp.SYSType );</text>}
+                            try
+                            {
+                            @Model.ObjectName = db.PrepSPToModel<@Model.DotNetModelName>(sqlCommand, Params);
+                            }
+                            catch (Exception ex)
+                            {
+                            throw new Exception(ex.Message);
+                            }
+                            }
+                            return @Model.ObjectName;
+                            }
+
+    //
+    @{      <text> public List<@Model.DotNetModelName>  @Model.MethodGetByAllName ()</text>}
+                           {
+                             List<@Model.DotNetModelName> @(Model.ObjectName)List = new List<@Model.DotNetModelName> ();
+
+                                using (AdoHelper db = new AdoHelper(base.ConnectionString))
+                                {
+                                string sqlCommand = "@Model.SPGetByAllName";
+                                try
+                                    {
+                                        @(Model.ObjectName)List = db.SqlToList<@Model.DotNetModelName>(sqlCommand);
+                                    }
+                                catch (Exception ex)
+                                    {
+                                        throw new Exception(ex.Message);
+                                     }
+                                return @(Model.ObjectName)List;
+                                }
+                            }
+    
+
+    // GetConsignmentLocationBySearch
+
+    @{      <text> public List<@Model.DotNetModelName>  @Model.MethodGetBySearchName (@(Model.DotNetModelName) @Model.ObjectName)</text>}
+                            {
+                                List<@Model.DotNetModelName>  @(Model.ObjectName)List = new List<@Model.DotNetModelName>();
+
+                                using (AdoHelper db = new AdoHelper(base.ConnectionString))
+                                    {
+                                        try
+                                            {
+                                              @{int p=Model.PropetyList.FindAll(pr=>pr.IsSkippable==false).Count;}
+                                              string[] Params = new string[@p];
+                                              string sqlCommand = "@Model.SPGetBySearchName";
+                                              @{int q=0;}
+                                              @foreach(var property in Model.PropetyList)
+                                              {
+                                              if(@property.IsSkippable==false)
+                                              {
+                                                <text>  Params[@q] = db.CreateParameter("[[P]]@(property.DBName)", @Model.ObjectName.@property.SYSName, DbType.@property.SYSType);</text>
+                                              q++;
+                                              }
+                                              }
+
+                                            @(Model.ObjectName)List = db.SqlToList<@Model.DotNetModelName>(sqlCommand);
+                                              }
+                                            catch (Exception ex)
+                                            {
+                                                throw new Exception(ex.Message);
+                                             }
+                                            return @(Model.ObjectName)List;
+                                            }
+                                     }
+
+                    @{      <text>    public string @Model.MethodDeleteName (@Model.DotNetModelName @Model.ObjectName )</text>}
+                                                      {
+                                                      @{<text>   string sqlCommand = "@Model.SPDeleteName";</text>}
+
+                                                      using(AdoHelper db = new AdoHelper(base.ConnectionString))
+                                                      {
+                                                        @{int x=Model.PropetyList.FindAll(pr=>pr.IsDeleteColumn==true).Count + Model.PropetyList.FindAll(pr=>pr.IsDeleteSupportColumn==true).Count;}
+                                                            try
+                                                                {
+                                                                    string[] Params = new string[@x];
+                                                                    db.BeginTransaction();
+                                                                    @{int y=0;}
+                                                                        @foreach(var property in Model.PropetyList)
+                                                                            {
+                                                                                if(@property.IsDeleteColumn==true || @property.IsDeleteSupportColumn==true)
+                                                                                {
+                                                                                <text>  Params[@y] = db.CreateParameter("[[P]]@(property.DBName)", @Model.ObjectName.@property.SYSName, DbType.@property.SYSType);</text>
+                                                                                    y++;
+                                                                                 }
+                                                                              }
+                                                                        int result = db.PrepSPToNonQuery(sqlCommand, Params);
+                                                                        db.CloseTransaction();
+                                                                        if (result > 0)
+                                                                        {
+                                                                            if (result > 0)
+                                                                             {
+                                                                                return vDELETESUCCESS;
+                                                                             }
+                                                                             else
+                                                                             {
+                                                                                db.Rollback();
+                                                                                return vDELETEFAIL;
+                                                                             }
+                                                                         }
+                                                                    }
+                                                                catch (Exception ex)
+                                                                {
+                                                                    db.Rollback();
+                                                                    throw new Exception(ex.Message);
+                                                                 }
+                                                             return vDELETESUCCESS;
+                                                            }
+                                                      }
+                                                      #endregion
+                                                      }
+                                                      }

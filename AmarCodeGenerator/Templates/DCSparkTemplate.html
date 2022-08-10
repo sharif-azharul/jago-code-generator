@@ -1,0 +1,184 @@
+﻿using Aplectrum.Spark.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+@model AmarCodeGenerator.TableModel
+@{ <text></text>}
+namespace Aplectrum.Spark.DAL
+{
+    public class @Model.DotNetDataContextName
+    {
+        private string vSAVESUCCESS = "Data Saved Successfully.";
+        private string vSAVEFAIL = "Data Not Saved.";
+        private string vDELETESUCCESS = "Data Deleted Successfully.";
+        private string vDELETEFAIL = "Data Not Deleted.";
+@{ <text></text>}
+        #region Public Methods
+@{ <text></text>}
+@{      <text>    public string @Model.MethodSaveName (@Model.DotNetModelName @Model.ObjectName )</text>}
+						{
+						 @{<text>   string sqlCommand = "@Model.SPSaveName";</text>}
+
+							try
+								{
+									using (var connection = DatabaseObjects.SparkDatabaseContext())
+										{
+
+										@{ <text>using(var command = new SqlCommand("@Model.SPSaveName", connection)) </text>}
+										{
+											command.SelectCommand.CommandType = CommandType.StoredProcedure;
+												
+												@foreach(var property in Model.PropetyList)
+													{
+														if(@property.IsSkippable==false)
+														{
+<text>var parameter@(property.DBName) = new SqlParameter("[[P]]@(property.DBName)", DbType.@property.SYSType) { Value = @Model.ObjectName.@property.SYSName };</text>
+<text>command.Parameters.Add(parameter@(property.DBName));</text>
+<text></text>
+														
+														}
+													}
+
+												connection.Open();
+												command.ExecuteNonQuery();
+												connection.Close();
+												connection.Dispose();
+												command.Dispose();
+										 }
+										}
+								  }
+								catch (Exception ex)
+								{
+								throw new Exception(ex.Message);
+								}
+								return vSAVESUCCESS;
+						}
+
+	//Get by Id
+    @{var pp = Model.PropetyList.FirstOrDefault(c => c.IsPrimayKey == true);}
+    @{      <text>    public @Model.DotNetModelName @Model.MethodGetByKeyName ( @pp.SYSType p@(pp.SYSName))</text>}
+							{
+                        string sqlCommand = "@Model.SPGetByKeyName";
+							 using (var connection = DatabaseObjects.SparkDatabaseContext())
+									{
+
+										@Model.DotNetModelName @Model.ObjectName = new @Model.DotNetModelName ();
+										using (var command = new SqlCommand(sqlCommand, connection))
+										{
+										command.CommandType = CommandType.StoredProcedure;
+
+										var parameter@(pp.SYSName) = new SqlParameter("[[P]]@pp.SYSName", DbType.@pp.SYSType) { Value = p@(pp.SYSName) };
+										command.Parameters.Add(parameter@(pp.SYSName));
+                                        connection.Open();
+                                        IDataReader dr = command.ExecuteReader();
+                                        if (dr.Read())
+                                        {
+                                        BuildModel(@Model.ObjectName, dr);
+                                        }
+                                        connection.Close();
+                                        connection.Dispose();
+                                        command.Dispose();
+
+                                        return @Model.ObjectName;
+                                        }
+                                        }
+                                        }
+
+
+    //--------------- Get All
+    @{      <text> public DataTable  @Model.MethodGetByAllName ()</text>}
+    {
+    string sqlCommand = "@Model.SPGetByAllName";
+    try
+    {
+    using (var connection = DatabaseObjects.SparkDatabaseContext())
+    {
+    using (var command = new SqlDataAdapter(sqlCommand, connection))
+
+    {
+    {
+    command.SelectCommand.CommandType = CommandType.StoredProcedure;
+    connection.Open();
+    var dt = new DataTable();
+    command.Fill(dt);
+
+    return dt;
+    }
+    }
+    }
+    }
+catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+    }
+
+
+
+@{var dd = Model.PropetyList.FirstOrDefault(c => c.IsPrimayKey == true);}
+    @{      <text>    public string @Model.MethodDeleteName (@dd.SYSType p@(dd.SYSName))</text>}
+    {
+    @{<text>   string sqlCommand = "@Model.SPDeleteName";</text>}
+
+    using (var connection = DatabaseObjects.SparkDatabaseContext())
+            {
+                using (var command = new SqlCommand(sqlCommand, connection))
+                {
+command.CommandType = CommandType.StoredProcedure;
+    
+    try
+    {
+    
+    var parameter@(pp.SYSName) = new SqlParameter("[[P]]@pp.SYSName", DbType.@pp.SYSType) { Value = p@(pp.SYSName) };
+	command.Parameters.Add(parameter@(pp.SYSName));
+
+    connection.Open();
+                    command.ExecuteNonQuery();
+    
+    }
+    catch (Exception ex)
+    {
+    
+    throw new Exception(ex.Message);
+    }
+}}
+    return vDELETESUCCESS;
+    }
+    #endregion
+
+private  @Model.DotNetModelName BuildModel(@Model.DotNetModelName @Model.ObjectName, IDataReader dr)
+        {
+            DataTable dt = dr.GetSchemaTable();
+            foreach (DataRow dRow in dt.Rows)
+            {
+                string col = dRow.ItemArray[0].ToString();
+                switch (col)
+                {
+                    @foreach(var property in Model.PropetyList)
+					{
+						
+                   <text>  case "@(property.DBName)":</text> 
+if(@property.SYSType=="string")
+						{
+                      <text> @Model.ObjectName.@property.SYSName  = dr["@(property.DBName)"].Equals(DBNull.Value) [[WHAT]] string.empty : dr["@(property.DBName)"].ToString();</text> 
+}
+else
+{
+<text> @Model.ObjectName.@property.SYSName  = dr["@(property.DBName)"].Equals(DBNull.Value) [[WHAT]] 0 : Convert.ToInt32(dr["@(property.DBName)"].ToString());</text> 
+}
+                        <text>break;</text>
+<text></text>
+}
+                    default:
+                        break;
+                }
+            }
+            return @Model.ObjectName;
+        }
+
+
+    }
+    }

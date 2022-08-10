@@ -1,0 +1,18 @@
+﻿@model AmarCodeGenerator.TableModel
+using POSSystems.Core.Models;
+using POSSystems.Core.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace POSSystems.Persistence.Repositories
+{
+    public class @(Model.DotNetModelName)Repository : Repository<@(Model.DotNetModelName)>
+    , I@(Model.DotNetModelName)Repository
+    {
+    public @(Model.DotNetModelName)Repository(ApplicationDbContext context)
+    : base(context)
+    {
+    }
+    }
+    }

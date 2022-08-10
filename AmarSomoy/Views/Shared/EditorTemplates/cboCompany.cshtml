@@ -1,0 +1,21 @@
+﻿@using Telerik.Web.Mvc.UI
+
+@*@( Html.Telerik().ComboBox()
+            .Name("CompanyCode")
+            .Placeholder("Select Company...")
+            .DataBinding(dataBinding => dataBinding
+                  //Ajax binding
+                  .Ajax()
+                  
+                       //The action method which will return JSON
+                       .Select("_GetCompanyListAjaxcbo", "Company")
+            )
+    )*@
+
+
+@( Html.Telerik().DropDownList()
+       .Name("CompanyCode")
+       .Placeholder("Select Company...")
+       .BindTo((IEnumerable<SelectListItem>
+    )ViewBag.CompanyList)
+)

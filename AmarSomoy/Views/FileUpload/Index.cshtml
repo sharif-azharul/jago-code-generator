@@ -1,0 +1,24 @@
+﻿@using Telerik.Web.Mvc.UI
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="box">
+    <h4>Information</h4>
+    <p>
+        Amazon
+    </p>
+</div>
+<form method="post" action='@Url.Action("Basic_Usage_Submit")'>
+    <div class="demo-section k-content">
+        @(Html.Telerik().Upload()
+            .Name("files")
+            .HtmlAttributes(new { aria_label = "files" })
+        )
+        <p style="padding-top: 1em; text-align: right">
+            <button type="submit" class="k-button k-primary">Submit</button>
+        </p>
+    </div>
+</form>

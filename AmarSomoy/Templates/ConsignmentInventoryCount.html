@@ -1,0 +1,84 @@
+﻿@model UPASS.BTX.Model.ConsignmentInventoryCountsModel
+
+<style type="text/css">
+    #tbody tr:nth-child(even) {
+        background-color: #e5e6c9;
+    }
+</style>
+
+<div id="MainDiv" style="width: 98%;">
+    <!--<div id="TitleDiv" style="background-color: #6666ff; border-top-left-radius: 10px; border-top-right-radius: 10px; padding: 1px 1px !important;">
+        <div style="font-weight: bold; font-size: 20px; color: white; text-align: center; padding: 1px 1px !important;">Item receipts with discripencies</div>
+    </div>-->
+    <!--End title div-->
+    <div id="OrderDiv" style="padding: 20px">
+        <div style="border:hidden">
+            <div style="font-family:verdana, sans-serif;font-size:10pt; width:100%;background-color:red;color:white;font-weight: bold;">Inventory details:</div>
+            <table>
+                <tr>
+                    <td style="width: 100%">
+                        <table>
+                            <tr>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;"><b>Count Date :</b></td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;">@Model.InventoryCountDate</td>
+                            </tr>
+                            <tr>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;"><b>Location :</b></td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;">@Model.LocationName (@Model.LocationId)</td>
+                            </tr>
+                            <tr>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;"><b>Counted by :</b></td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;">@Model.CreateUser</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="OrderLineDiv"  >
+            <div style="border:hidden">
+                <div style="font-family:verdana, sans-serif;font-size:10pt; width:100%;background-color:red;color:white;font-weight: bold;">
+                    Line Items :
+                </div>
+                <table id="LineTable" style="width:100% ;border-bottom:solid 5px #333333;">
+                    <thead style="background-color: black; color: white;font-weight: bold;">
+                        <tr>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">Item ID</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">Item Name</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">Quantity On Hand</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">Physical Quantity</td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        @foreach (var item in Model.ConsignmentInventoryCountItemList)
+                        {
+                        if(@item.PhysicalCountQty != @item.OnHandQty)
+                        {
+                        <tr style="border-bottom:solid thin #dddddd">
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">@item.BtxItemId</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">@item.ItemName</td>
+
+                            <td  style="font-family:verdana, sans-serif;font-size:10pt;text-align: right;">@string.Format("{0:N0}", @item.OnHandQty) </td>
+                            <td  style="font-family:verdana, sans-serif;font-size:10pt;text-align: right; color:red;font-weight:bold">@string.Format("{0:N0}", @item.PhysicalCountQty)</td>
+                        </tr>
+                        }
+                        else
+                        {
+                        <tr>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">@item.BtxItemId</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">@item.ItemName</td>
+
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;text-align: right;">@string.Format("{0:N0}", @item.OnHandQty) </td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;text-align: right;">@string.Format("{0:N0}", @item.PhysicalCountQty)</td>
+                        </tr>
+                        }
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <!--End Line div-->
+    </div>
+</div>
+

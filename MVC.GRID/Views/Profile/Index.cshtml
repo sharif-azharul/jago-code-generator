@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles {
+    @Styles.Render("~/Content/gridmvc")
+}
+
+<h2>Index</h2>
+
+<div class="row">
+    @Html.Action("GetGrid")
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/gridmvc")
+   
+
+@*<script>
+    $(document).ready(function () {
+        $(".grid-mvc").gridmvc().ajaxify(
+            {
+                getPagedData: "/Profile/ProfilesPaged",
+                getData: "/Profile/Profiles"
+            });
+    });
+</script>*@
+    }

@@ -1,0 +1,81 @@
+﻿@model AmarCodeGenerator.TableModel
+
+    using EmployeeEnrollment.Core.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+
+                namespace EmployeeEnrollment.Core.Entities
+                {
+                public class @Model.OriginalTableName : BaseEntity< Guid>, IAggregateRoot
+                {
+                @foreach(var property in Model.PropetyList)
+                {
+                if(@property.IsSkippable==false)
+                {
+                <text>         public @property.SYSType @property.SYSName {get; private set;}</text>
+                }
+                }
+
+                
+public @Model.OriginalTableName (Guid id) : base(id) { }
+private @Model.OriginalTableName () : base(Guid.NewGuid()) { }
+
+                public static @Model.OriginalTableName Create (
+
+                @foreach(var property in Model.PropetyList)
+                {
+                if(@property.IsSkippable==false)
+                {
+                <text> @property.SYSType @property.ParameterFormatName ,</text>
+                }
+                }
+                )
+                
+                {
+var oModel = new @Model.OriginalTableName ( Guid.NewGuid( )); 
+
+                @foreach(var property in Model.PropetyList)
+                {
+                if(@property.IsSkippable==false)
+                {
+                <text> oModel. @property.SYSName = @property.ParameterFormatName;</text>
+                }
+                }
+
+    return oModel;
+
+    }
+
+   
+    public void   @Model.UpdateConstructorName 
+        (
+
+    @foreach(var property in Model.PropetyList)
+    {
+    if(@property.IsSkippable==false)
+    {
+    <text> @property.SYSType @property.ParameterFormatName ,</text>
+    }
+    }
+    )
+    {
+    @foreach(var property in Model.PropetyList)
+    {
+    if(@property.IsSkippable==false)
+    {
+    <text> @property.SYSName = @property.ParameterFormatName;</text>
+    }
+    }
+    }
+
+
+    public void @Model.DeleteCommandName ()
+    {
+    IsDeleted = true;
+    }
+
+
+    }
+    }

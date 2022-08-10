@@ -1,0 +1,48 @@
+﻿@model IEnumerable<AmarSomoy.Models.CompanyModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.CompanyCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompanyAddress)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyAddress)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { pCode = item.CompanyCode }) |
+                @Html.ActionLink("Details", "Details", new { pCode = item.CompanyCode }) |
+                @Html.ActionLink("Delete", "Delete", new { pCode = item.CompanyCode })
+        </td>
+    </tr>
+    }
+
+</table>

@@ -1,0 +1,91 @@
+﻿@model UPASS.BTX.Model.ConsignmentReceiptsModel
+
+<style type="text/css">
+    #tbody tr:nth-child(even) {
+        background-color: #e5e6c9;
+    }
+</style>
+
+<div id="MainDiv" style="padding-left: 0px; width: 98%; padding-right: 0px; margin: auto;">
+    <!--<div id="TitleDiv" style="background-color: #6666ff; border-top-left-radius: 10px; border-top-right-radius: 10px; padding: 1px 1px !important;">
+        <div style="font-weight: bold; font-size: 20px; color: white; text-align: center; padding: 1px 1px !important;">Item receipts with discripencies</div>
+    </div>-->
+    <!--End title div-->
+    <div id="OrderDiv" style="color: black; background-color: white;  border-radius: 10px; border-color: black; padding: 20px">
+        <div style="border:hidden">
+            <div style="font-family:verdana, sans-serif;font-size:10pt; width:100%;background-color:red;color :
+                 white; font-weight: bold;">Transfer details:</div>
+            <table>
+                <tr>
+                    <td style="width: 100%">
+                        <table>
+                            <tr>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;"><b>Transfer Id :</b></td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;">@Model.TransferId</td>
+                            </tr>
+                            <tr>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;"><b>Receive date </b></td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;">@Model.ReceiptDate</td>
+                            </tr>
+                            <tr>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;"><b>Location :</b></td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;">@Model.LocationName (@Model.LocationId)</td>
+                            </tr>
+                            <tr>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;"><b>Received by :</b></td>
+                                <td style="font-family:verdana, sans-serif;font-size:10pt;">@Model.CreateUser</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="OrderLineDiv" style="padding-top: 20px;">
+            <div style="border:hidden">
+                <div style="font-family:verdana, sans-serif;font-size:10pt; width:100%;background-color:red;color:white;font-weight: bold;">
+                    Line Items :
+                </div>
+                <table id="LineTable" style="width:100% ; border-bottom:solid 5px #333333;">
+                    <thead style="background-color: black; color: white;font-weight: bold;">
+                        <tr>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">Item ID</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">Item Name</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">Quantity On Transfer</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">Receive Quantity</td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        @foreach (var item in Model.ConsignmentReceiptItemList)
+                        {
+                        if(@item.ActualQty != @item.ReceivedQty)
+                        {
+                        <tr>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">@item.ItemName</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">@item.Description</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt; text-align :right;">@string.Format("{0:N0}", @item.ActualQty) </td>
+
+                            <td  style="font-family:verdana, sans-serif;font-size:10pt;text-align: right; color:red;font-weight:bold">@string.Format("{0:N0}", @item.ReceivedQty)</td>
+
+                        </tr>
+
+                        }
+                        else
+                        {
+                        <tr>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">@item.ItemName</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt;">@item.Description</td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt; text-align :right;">@string.Format("{0:N0}", @item.ActualQty) </td>
+                            <td style="font-family:verdana, sans-serif;font-size:10pt; text-align: right;">@string.Format("{0:N0}", @item.ReceivedQty)</td>
+                        </tr>
+                        }
+
+                        }
+                    </tbody>
+
+                </table>
+                </div>
+        </div>
+        <!--End Line div-->
+    </div>
+</div>
+

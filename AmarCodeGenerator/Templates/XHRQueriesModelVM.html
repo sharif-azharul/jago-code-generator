@@ -1,0 +1,19 @@
+﻿@model AmarCodeGenerator.TableModel
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace EmployeeEnrollment.Application.@Model.OriginalTableName .Queries.Models
+{
+    public class @Model.QueriesVMName
+    {
+        @foreach(var property in Model.PropetyList)
+                {
+                if(@property.IsSkippable==false)
+                {
+<text>         public @property.SYSType @property.SYSName {get; set;}</text>
+                }
+                }
+    }
+}

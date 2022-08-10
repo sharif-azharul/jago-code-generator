@@ -1,0 +1,19 @@
+﻿@model AmarCodeGenerator.TableModel
+
+    export class @Model.OriginalTableName {
+
+@foreach(var property in Model.PropetyList)
+                {
+                if(@property.IsSkippable==false)
+                {
+<text>          @property.ParameterFormatName :any; </text>
+                }
+                }
+
+ public constructor (init?:Partial< @Model.OriginalTableName > )
+    {
+        Object.assign(this,init);
+    }
+}
+
+
