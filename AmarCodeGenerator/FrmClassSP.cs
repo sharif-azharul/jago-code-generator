@@ -876,6 +876,11 @@ namespace AmarCodeGenerator
 
         }
 
+        private void btnAspnetZeroGenerate_Click(object sender, EventArgs e)
+        {
+
+        }
+
         //public  string CreateConnectionStringWithDatabase()
         //{
         //    try

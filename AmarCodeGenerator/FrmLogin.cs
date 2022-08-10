@@ -33,5 +33,13 @@ namespace AmarCodeGenerator
             else
                 MessageBox.Show("Please enter user id or password");
         }
+
+        private void btnGenerate_Click(object sender, EventArgs e)
+        {
+            FrmAspnetZero frm = new FrmAspnetZero();
+            this.Hide();
+            frm.ShowDialog();
+            
+        }
     }
 }
