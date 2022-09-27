@@ -60,9 +60,9 @@
             this.gboConnectionString.Controls.Add(this.label7);
             this.gboConnectionString.Controls.Add(this.label8);
             this.gboConnectionString.Location = new System.Drawing.Point(60, 11);
-            this.gboConnectionString.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gboConnectionString.Margin = new System.Windows.Forms.Padding(4);
             this.gboConnectionString.Name = "gboConnectionString";
-            this.gboConnectionString.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gboConnectionString.Padding = new System.Windows.Forms.Padding(4);
             this.gboConnectionString.Size = new System.Drawing.Size(420, 384);
             this.gboConnectionString.TabIndex = 23;
             this.gboConnectionString.TabStop = false;
@@ -82,9 +82,9 @@
             this.rboUsernamePasswordSecurity.AutoSize = true;
             this.rboUsernamePasswordSecurity.Checked = true;
             this.rboUsernamePasswordSecurity.Location = new System.Drawing.Point(64, 193);
-            this.rboUsernamePasswordSecurity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rboUsernamePasswordSecurity.Margin = new System.Windows.Forms.Padding(4);
             this.rboUsernamePasswordSecurity.Name = "rboUsernamePasswordSecurity";
-            this.rboUsernamePasswordSecurity.Size = new System.Drawing.Size(280, 21);
+            this.rboUsernamePasswordSecurity.Size = new System.Drawing.Size(267, 20);
             this.rboUsernamePasswordSecurity.TabIndex = 20;
             this.rboUsernamePasswordSecurity.TabStop = true;
             this.rboUsernamePasswordSecurity.Text = "Use a specific user name and password";
@@ -93,16 +93,16 @@
             // txtServerName
             // 
             this.txtServerName.Location = new System.Drawing.Point(88, 71);
-            this.txtServerName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtServerName.Margin = new System.Windows.Forms.Padding(4);
             this.txtServerName.Name = "txtServerName";
             this.txtServerName.Size = new System.Drawing.Size(259, 22);
             this.txtServerName.TabIndex = 10;
-            this.txtServerName.Text = "Azhar-PC";
+            this.txtServerName.Text = "DESKTOP-BPLNFDB";
             // 
             // btnConnectDisconnect
             // 
             this.btnConnectDisconnect.Location = new System.Drawing.Point(268, 309);
-            this.btnConnectDisconnect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnConnectDisconnect.Margin = new System.Windows.Forms.Padding(4);
             this.btnConnectDisconnect.Name = "btnConnectDisconnect";
             this.btnConnectDisconnect.Size = new System.Drawing.Size(100, 31);
             this.btnConnectDisconnect.TabIndex = 0;
@@ -114,9 +114,9 @@
             // 
             this.rboWindowsSecurity.AutoSize = true;
             this.rboWindowsSecurity.Location = new System.Drawing.Point(64, 165);
-            this.rboWindowsSecurity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rboWindowsSecurity.Margin = new System.Windows.Forms.Padding(4);
             this.rboWindowsSecurity.Name = "rboWindowsSecurity";
-            this.rboWindowsSecurity.Size = new System.Drawing.Size(258, 21);
+            this.rboWindowsSecurity.Size = new System.Drawing.Size(245, 20);
             this.rboWindowsSecurity.TabIndex = 19;
             this.rboWindowsSecurity.Text = "Use Windows NT integrated security";
             this.rboWindowsSecurity.UseVisualStyleBackColor = true;
@@ -124,7 +124,7 @@
             // txtUserName
             // 
             this.txtUserName.Location = new System.Drawing.Point(181, 222);
-            this.txtUserName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtUserName.Margin = new System.Windows.Forms.Padding(4);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.txtUserName.Size = new System.Drawing.Size(185, 22);
@@ -143,7 +143,7 @@
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(181, 256);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(185, 22);
@@ -175,9 +175,9 @@
             this.gboConnectionStatus.Controls.Add(this.lblConnectionStatus);
             this.gboConnectionStatus.Controls.Add(this.btnDisconnect);
             this.gboConnectionStatus.Location = new System.Drawing.Point(60, 402);
-            this.gboConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gboConnectionStatus.Margin = new System.Windows.Forms.Padding(4);
             this.gboConnectionStatus.Name = "gboConnectionStatus";
-            this.gboConnectionStatus.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gboConnectionStatus.Padding = new System.Windows.Forms.Padding(4);
             this.gboConnectionStatus.Size = new System.Drawing.Size(420, 65);
             this.gboConnectionStatus.TabIndex = 43;
             this.gboConnectionStatus.TabStop = false;
@@ -189,7 +189,7 @@
             this.label23.Location = new System.Drawing.Point(15, 31);
             this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(131, 17);
+            this.label23.Size = new System.Drawing.Size(120, 16);
             this.label23.TabIndex = 37;
             this.label23.Text = "Connection Status :";
             // 
@@ -200,7 +200,7 @@
             this.lblConnectionStatus.Location = new System.Drawing.Point(156, 31);
             this.lblConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblConnectionStatus.Name = "lblConnectionStatus";
-            this.lblConnectionStatus.Size = new System.Drawing.Size(102, 17);
+            this.lblConnectionStatus.Size = new System.Drawing.Size(96, 16);
             this.lblConnectionStatus.TabIndex = 36;
             this.lblConnectionStatus.Text = "Not Connected";
             // 
@@ -208,7 +208,7 @@
             // 
             this.btnDisconnect.Enabled = false;
             this.btnDisconnect.Location = new System.Drawing.Point(268, 21);
-            this.btnDisconnect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDisconnect.Margin = new System.Windows.Forms.Padding(4);
             this.btnDisconnect.Name = "btnDisconnect";
             this.btnDisconnect.Size = new System.Drawing.Size(100, 31);
             this.btnDisconnect.TabIndex = 4;
@@ -221,7 +221,7 @@
             this.ClientSize = new System.Drawing.Size(532, 481);
             this.Controls.Add(this.gboConnectionStatus);
             this.Controls.Add(this.gboConnectionString);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmConnection";
             this.Text = "FrmConnection";
             this.gboConnectionString.ResumeLayout(false);

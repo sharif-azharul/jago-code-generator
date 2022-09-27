@@ -1,0 +1,23 @@
+﻿@model AmarCodeGenerator.TableModel
+
+    using Abp.Application.Services.Dto;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Text;
+
+    namespace LunaHR.Application.Leave.Shared.LeaveTypes.Dto
+
+       {
+          public class @Model.ZeroUpdateInputDtoName
+
+           {
+           @foreach(var property in Model.PropetyList)
+                {
+          if(@property.IsSkippable==false)
+              {
+<text>          public @property.SYSType @property.SYSName {get; set;}</text>
+                }
+                }
+        }
+    }

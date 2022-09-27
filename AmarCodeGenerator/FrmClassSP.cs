@@ -148,39 +148,50 @@ namespace AmarCodeGenerator
 
                         foreach (var pTable in objTableModelList)
                         {
-                            //objModel.GenerateModelFromTemplateDataAnotation(pTable);
-                            objModel.GenerateModelFromTemplateXHR(pTable);
-                            oXHRCommand.GenerateCommandFromTemplateXHR(pTable);
-                            oXHRCommand.GenerateCommandVMFromTemplateXHR(pTable);
-                            oXHRCommand.GenerateCreateCommandFromTemplateXHR(pTable);
 
-                            oXHRCommand.GenerateUpdateCommandFromTemplateXHR(pTable);
-                            oXHRCommand.GenerateMarkAsDeleteCommandHandlerFromTemplateXHR(pTable);
+                            #region ----------------------- ASPNET ZERO
 
-                            // queries 
-                            oXHRCommand.GenerateQueriesModelXHR(pTable);
-                            oXHRCommand.GenerateQueriesXHR(pTable);
-                            oXHRCommand.GenerateQueryHandlerXHR(pTable);
-                            oXHRCommand.GenerateListQueryHandlerXHR(pTable);
-                            //controller
-                            oXHRCommand.GenerateControllerXHR(pTable);
-                            //Configuration
-                            oXHRCommand.GenerateConfigurationXHR(pTable);
-                            //
-                            oXHRCommand.GenerateGetAllFunctionXHR(pTable);
-                            //Angular
-                            oXHRCommand.GenerateAngularModelXHR(pTable);
-                            oXHRCommand.GenerateAngularServiceXHR(pTable);
+                            objModel.GenerateCreateInputDtoFromTemplateAspNetZero(pTable);
+                            objModel.GenerateCreateFilterDtoFromTemplateAspNetZero(pTable);
+                            objModel.GenerateOutputDtoFromTemplateAspNetZero(pTable);
+                            objModel.GenerateUpdateDtoFromTemplateAspNetZero(pTable);
+                            #endregion
 
-                            oXHRAngular.CreateComponent(pTable);
-                            oXHRAngular.CreateComponentCSS(pTable);
-                            oXHRAngular.CreateComponentHTML(pTable);
-                            oXHRAngular.CreateComponentSpec(pTable);
-                            oXHRAngular.ListComponent(pTable);
-                            oXHRAngular.ListComponentCSS(pTable);
-                            oXHRAngular.ListComponentHTML(pTable);
-                            oXHRAngular.ListComponentSpec(pTable);
+                            #region XHR ---------------
+                            ////objModel.GenerateModelFromTemplateDataAnotation(pTable);
+                            //objModel.GenerateModelFromTemplateXHR(pTable);
+                            //oXHRCommand.GenerateCommandFromTemplateXHR(pTable);
+                            //oXHRCommand.GenerateCommandVMFromTemplateXHR(pTable);
+                            //oXHRCommand.GenerateCreateCommandFromTemplateXHR(pTable);
 
+                            //oXHRCommand.GenerateUpdateCommandFromTemplateXHR(pTable);
+                            //oXHRCommand.GenerateMarkAsDeleteCommandHandlerFromTemplateXHR(pTable);
+
+                            //// queries 
+                            //oXHRCommand.GenerateQueriesModelXHR(pTable);
+                            //oXHRCommand.GenerateQueriesXHR(pTable);
+                            //oXHRCommand.GenerateQueryHandlerXHR(pTable);
+                            //oXHRCommand.GenerateListQueryHandlerXHR(pTable);
+                            ////controller
+                            //oXHRCommand.GenerateControllerXHR(pTable);
+                            ////Configuration
+                            //oXHRCommand.GenerateConfigurationXHR(pTable);
+                            ////
+                            //oXHRCommand.GenerateGetAllFunctionXHR(pTable);
+                            ////Angular
+                            //oXHRCommand.GenerateAngularModelXHR(pTable);
+                            //oXHRCommand.GenerateAngularServiceXHR(pTable);
+
+                            //oXHRAngular.CreateComponent(pTable);
+                            //oXHRAngular.CreateComponentCSS(pTable);
+                            //oXHRAngular.CreateComponentHTML(pTable);
+                            //oXHRAngular.CreateComponentSpec(pTable);
+                            //oXHRAngular.ListComponent(pTable);
+                            //oXHRAngular.ListComponentCSS(pTable);
+                            //oXHRAngular.ListComponentHTML(pTable);
+                            //oXHRAngular.ListComponentSpec(pTable);
+
+                            #endregion
                             //objBusinessLayer.GenerateBLLClass(pTable);
                             ////objDataContextLayer.GenerateDataContextClass(pTable);
                             //objStoreProcedureLayer.GenerateStoredProcedures(pTable);
@@ -421,6 +432,18 @@ namespace AmarCodeGenerator
 
             objTableModel.RepositoryName = string.Format("{0}Repository", objTableModel.TableNameAsTitle);
             objTableModel.RepositoryInterfaceName = string.Format("I{0}Repository", objTableModel.TableNameAsTitle);
+
+
+            // ASPNET ZERO Properties
+            objTableModel.ZeroControllerName = $"{objTableModel.TableNameAsTitle}ApiController";
+            objTableModel.ZeroCreateInputDtoName = $"{objTableModel.TableNameAsTitle}CreateInput";
+            objTableModel.ZeroFilterInputDtoName = $"{objTableModel.TableNameAsTitle}FilterInput";
+            objTableModel.ZeroOutputDtoName = $"{objTableModel.TableNameAsTitle}Output";
+            objTableModel.ZeroUpdateInputDtoName = $"{objTableModel.TableNameAsTitle}UpdateInput";
+            objTableModel.ZeroServiceInterfaceName = $"I{objTableModel.TableNameAsTitle}AppService";
+            objTableModel.ZeroServiceName = $"{objTableModel.TableNameAsTitle}AppService";
+            objTableModel.ZeroFolderName = $"{objTableModel.TableNameAsTitle}s";
+            
 
             //===================================================================================================================change below
             //objTableModel.DotNetModelName = objTableModel.TableNameAsTitle;

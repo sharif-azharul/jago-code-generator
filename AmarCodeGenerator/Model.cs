@@ -175,6 +175,149 @@ namespace AmarCodeGenerator
             }
         }
 
+        #region ---------------- ASP NET ZERO
+        public void GenerateCreateInputDtoFromTemplateAspNetZero(TableModel pTable) {
+            if (pTable != null) {
+                try {
+                    CommonTask.CreateDirectory(SessionUtility.ModelFolder + pTable.ZeroFolderName + @"\Dto\");
+                    StreamWriter sw = null;
+                    System.Text.StringBuilder sb = null;
+                    //Stream myStream = null;
+
+                    #region Create Empty cs file
+                    sb = new System.Text.StringBuilder(SessionUtility.ModelFolder + pTable.ZeroFolderName+@"\Dto\" + pTable.ZeroCreateInputDtoName);
+                    // sb = new System.Text.StringBuilder(lstrTableName);
+                    sb.Append(".cs");
+                    FileInfo lobjFileInfo = new FileInfo(sb.ToString());
+                    sw = lobjFileInfo.CreateText();
+                    #endregion
+                    sb = new System.Text.StringBuilder();
+
+                    //CommonTask.CreateDirectory(SessionUtility.ModelFolder);
+                    sb.Append(CommonTask.PrepareMailContent(pTable, "ZeroModelCreateInputTemplate.html"));
+
+
+                    sw.WriteLine(sb.ToString());
+                    #region Close file
+                    if (sw != null) {
+                        //sw.WriteLine("\r\n\t}\r\n}");
+                        sw.Close();
+                    }
+                    #endregion
+
+                } catch (Exception ex) {
+                    throw ex;
+                }
+            }
+        }
+
+        public void GenerateCreateFilterDtoFromTemplateAspNetZero(TableModel pTable) {
+            if (pTable != null) {
+                try {
+                    CommonTask.CreateDirectory(SessionUtility.ModelFolder + pTable.ZeroFolderName + @"\Dto\");
+                    StreamWriter sw = null;
+                    System.Text.StringBuilder sb = null;
+                    //Stream myStream = null;
+
+                    #region Create Empty cs file
+                    sb = new System.Text.StringBuilder(SessionUtility.ModelFolder + pTable.ZeroFolderName + @"\Dto\" + pTable.ZeroFilterInputDtoName);
+                    // sb = new System.Text.StringBuilder(lstrTableName);
+                    sb.Append(".cs");
+                    FileInfo lobjFileInfo = new FileInfo(sb.ToString());
+                    sw = lobjFileInfo.CreateText();
+                    #endregion
+                    sb = new System.Text.StringBuilder();
+
+                    //CommonTask.CreateDirectory(SessionUtility.ModelFolder);
+                    sb.Append(CommonTask.PrepareMailContent(pTable, "ZeroModelFilterInputTemplate.html"));
+
+
+                    sw.WriteLine(sb.ToString());
+                    #region Close file
+                    if (sw != null) {
+                        //sw.WriteLine("\r\n\t}\r\n}");
+                        sw.Close();
+                    }
+                    #endregion
+
+                } catch (Exception ex) {
+                    throw ex;
+                }
+            }
+        }
+
+        public void GenerateOutputDtoFromTemplateAspNetZero(TableModel pTable) {
+            if (pTable != null) {
+                try {
+                    CommonTask.CreateDirectory(SessionUtility.ModelFolder + pTable.ZeroFolderName + @"\Dto\");
+                    StreamWriter sw = null;
+                    System.Text.StringBuilder sb = null;
+                    //Stream myStream = null;
+
+                    #region Create Empty cs file
+                    sb = new System.Text.StringBuilder(SessionUtility.ModelFolder + pTable.ZeroFolderName + @"\Dto\" + pTable.ZeroOutputDtoName);
+                    // sb = new System.Text.StringBuilder(lstrTableName);
+                    sb.Append(".cs");
+                    FileInfo lobjFileInfo = new FileInfo(sb.ToString());
+                    sw = lobjFileInfo.CreateText();
+                    #endregion
+                    sb = new System.Text.StringBuilder();
+
+                    //CommonTask.CreateDirectory(SessionUtility.ModelFolder);
+                    sb.Append(CommonTask.PrepareMailContent(pTable, "ZeroModelOutputTemplate.html"));
+
+
+                    sw.WriteLine(sb.ToString());
+                    #region Close file
+                    if (sw != null) {
+                        //sw.WriteLine("\r\n\t}\r\n}");
+                        sw.Close();
+                    }
+                    #endregion
+
+                } catch (Exception ex) {
+                    throw ex;
+                }
+            }
+        }
+
+        public void GenerateUpdateDtoFromTemplateAspNetZero(TableModel pTable) {
+            if (pTable != null) {
+                try {
+                    CommonTask.CreateDirectory(SessionUtility.ModelFolder + pTable.ZeroFolderName + @"\Dto\");
+                    StreamWriter sw = null;
+                    System.Text.StringBuilder sb = null;
+                    //Stream myStream = null;
+
+                    #region Create Empty cs file
+                    sb = new System.Text.StringBuilder(SessionUtility.ModelFolder + pTable.ZeroFolderName + @"\Dto\" + pTable.ZeroUpdateInputDtoName);
+                    // sb = new System.Text.StringBuilder(lstrTableName);
+                    sb.Append(".cs");
+                    FileInfo lobjFileInfo = new FileInfo(sb.ToString());
+                    sw = lobjFileInfo.CreateText();
+                    #endregion
+                    sb = new System.Text.StringBuilder();
+
+                    //CommonTask.CreateDirectory(SessionUtility.ModelFolder);
+                    sb.Append(CommonTask.PrepareMailContent(pTable, "ZeroModelUpdateInputTemplate.html"));
+
+
+                    sw.WriteLine(sb.ToString());
+                    #region Close file
+                    if (sw != null) {
+                        //sw.WriteLine("\r\n\t}\r\n}");
+                        sw.Close();
+                    }
+                    #endregion
+
+                } catch (Exception ex) {
+                    throw ex;
+                }
+            }
+        }
+
+        
+        #endregion
         public void GenerateModelClassWithoutAnnotation(TableModel pTableModel)
         {
             try

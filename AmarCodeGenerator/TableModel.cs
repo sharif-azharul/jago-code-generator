@@ -66,5 +66,15 @@ namespace AmarCodeGenerator
         public string CreateCommandName { get; set; }
         public string UpdateCommandName { get; set; }
         public string DeleteCommandName { get; set; }
+
+        // ASP net ZERO
+        public string ZeroCreateInputDtoName { get; set; }
+        public string ZeroFilterInputDtoName { get; set; }
+        public string ZeroOutputDtoName { get; set; }
+        public string ZeroUpdateInputDtoName { get; set; }
+        public string ZeroServiceInterfaceName { get; set; }
+        public string ZeroServiceName { get; set; }
+        public string ZeroControllerName { get; set; }
+        public string ZeroFolderName { get; set; }
     }
 }
