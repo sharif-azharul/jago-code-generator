@@ -8,12 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace AmarCodeGenerator
-{
-    public static class CommonTask
-    {
-        public static void LogError(Exception ex)
-        {
+namespace AmarCodeGenerator {
+    public static class CommonTask {
+        public static void LogError(Exception ex) {
 
             string sLogFormat = DateTime.Now.ToShortDateString().ToString() + " " + DateTime.Now.ToLongTimeString().ToString() + " ==> ";
             string sPathName = @"ErrorLog\";
@@ -21,8 +18,7 @@ namespace AmarCodeGenerator
             string sMonth = DateTime.Now.Month.ToString();
             string sDay = DateTime.Now.Day.ToString();
             string sErrorTime = sYear + sMonth + sDay;
-            if (!Directory.Exists(sPathName))
-            {
+            if (!Directory.Exists(sPathName)) {
                 Directory.CreateDirectory(sPathName);
             }
             StreamWriter sw = new StreamWriter(sPathName + "ErrorLog" + sErrorTime + ".txt", true);
@@ -32,22 +28,17 @@ namespace AmarCodeGenerator
             MessageBox.Show(ex.Message);
         }
         //........... Connection with database .................
-        public static bool ConnectToDatabase(string SQL_CONN_STRING)
-        {
+        public static bool ConnectToDatabase(string SQL_CONN_STRING) {
             bool isConnected = false;
-            try
-            {
+            try {
                 SessionUtility.connection = new SqlConnection(SQL_CONN_STRING);
                 SessionUtility.connection.Open();
 
-                if (SessionUtility.connection != null)
-                {
+                if (SessionUtility.connection != null) {
                     isConnected = true;
                 }
 
-            }
-            catch
-            {
+            } catch {
                 isConnected = false;
                 MessageBox.Show("Login failed");
             }
@@ -55,41 +46,33 @@ namespace AmarCodeGenerator
             return isConnected;
         }
 
-        public static Boolean CreateDirectory(string pDirectory)
-        {
+        public static Boolean CreateDirectory(string pDirectory) {
             if (!Directory.Exists(pDirectory))
                 Directory.CreateDirectory(pDirectory);
             return true;
         }
 
-        public static void WriteDefaultConstructor(StreamWriter sw, string ClassName)
-        {
-            try
-            {
+        public static void WriteDefaultConstructor(StreamWriter sw, string ClassName) {
+            try {
                 System.Text.StringBuilder sb = new System.Text.StringBuilder("\r\n\t\t#region Constructor");
                 sb.Append("\r\n\t\tpublic ");
                 sb.Append(ClassName);
                 sb.Append("()\r\n\t\t{}");
                 sb.Append("\r\n\t\t#endregion");
                 sw.WriteLine(sb.ToString());
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 throw ex;
             }
         }
 
 
-        public static string PrepareInParameter(ColumnModel column, string pObjectName)
-        {
+        public static string PrepareInParameter(ColumnModel column, string pObjectName) {
             string strParameter = string.Empty;
             const string dq = @"""";
             const string consTemp = @"@P_";
             string temp = dq + consTemp + column.DBName + dq;
-            switch (column.SYSType.Trim())
-            {
-                case "String":
-                    {
+            switch (column.SYSType.Trim()) {
+                case "String": {
                         strParameter = strParameter + "\r\n\t\t\t if(string.IsNullOrEmpty(" + pObjectName + "." + column.SYSName + "))";
                         strParameter = strParameter + "\r\n\t\t\t\tdb.AddInParameter(dbCommand," + temp + ",DbType." + column.SYSType + ", DBNull.Value );";
                         strParameter = strParameter + "\r\n\t\t\telse";
@@ -97,8 +80,7 @@ namespace AmarCodeGenerator
 
                     }
                     break;
-                case "DateTime":
-                    {
+                case "DateTime": {
                         strParameter = strParameter + "\r\n\t\t\t if(" + pObjectName + "." + column.SYSName + " != DateTime.MinValue)";
                         strParameter = strParameter + "\r\n\t\t\t\tdb.AddInParameter(dbCommand," + temp + ",DbType." + column.SYSType + "," + pObjectName + "." + column.SYSName + ");";
                         strParameter = strParameter + "\r\n\t\t\telse";
@@ -110,8 +92,7 @@ namespace AmarCodeGenerator
                 case "Int32?":
                 case "Int64?":
                 case "Int?":
-                case "DateTime?":
-                    {
+                case "DateTime?": {
                         strParameter = strParameter + "\r\n\t\t\t if(" + pObjectName + "." + column.SYSName + ".HasValue)";
                         strParameter = strParameter + "\r\n\t\t\t\tdb.AddInParameter(dbCommand," + temp + ",DbType." + column.SYSType + "," + pObjectName + "." + column.SYSName + ");";
                         strParameter = strParameter + "\r\n\t\t\telse";
@@ -119,8 +100,7 @@ namespace AmarCodeGenerator
                         strParameter = strParameter.Replace('?', ' ');
                     }
                     break;
-                case "Guid?":
-                    {
+                case "Guid?": {
                         strParameter = strParameter + "\r\n\t\t\t if(" + pObjectName + "." + column.SYSName + ".HasValue)";
                         strParameter = strParameter + "\r\n\t\t\t\tdb.AddInParameter(dbCommand," + temp + ",DbType." + column.SYSType + ",new Guid(" + pObjectName + "." + column.SYSName + "));";
                         strParameter = strParameter + "\r\n\t\t\telse";
@@ -129,14 +109,12 @@ namespace AmarCodeGenerator
                     }
                     break;
 
-                case "Guid":
-                    {
+                case "Guid": {
                         strParameter = strParameter + "\r\n\t\t\t\tdb.AddInParameter(dbCommand," + temp + ",DbType." + column.SYSType + ",new Guid(" + pObjectName + "." + column.SYSName + "));";
                     }
                     break;
 
-                case "decimal?":
-                    {
+                case "decimal?": {
                         strParameter = strParameter + "\r\n\t\t\t if(" + pObjectName + "." + column.SYSName + ".HasValue)";
                         strParameter = strParameter + "\r\n\t\t\t\tdb.AddInParameter(dbCommand," + temp + ",DbType.Decimal," + pObjectName + "." + column.SYSName + ");";
                         strParameter = strParameter + "\r\n\t\t\telse";
@@ -145,22 +123,19 @@ namespace AmarCodeGenerator
                     }
                     break;
 
-                case "decimal":
-                    {
+                case "decimal": {
                         strParameter = strParameter + "\r\n\t\t\t\tdb.AddInParameter(dbCommand," + temp + ",DbType.Decimal" + ",new Guid(" + pObjectName + "." + column.SYSName + "));";
                     }
                     break;
 
-                default:
-                    { strParameter = strParameter + "\r\n\t\t\t\tdb.AddInParameter(dbCommand," + temp + ",DbType." + column.SYSType + "," + pObjectName + "." + column.SYSName + ");"; }
+                default: { strParameter = strParameter + "\r\n\t\t\t\tdb.AddInParameter(dbCommand," + temp + ",DbType." + column.SYSType + "," + pObjectName + "." + column.SYSName + ");"; }
                     break;
             }
             return strParameter;
 
         }
 
-        public static string PrepareInParameterForAmarHelper(int i, ColumnModel column, string pObjectName)
-        {
+        public static string PrepareInParameterForAmarHelper(int i, ColumnModel column, string pObjectName) {
             string strParameter = string.Empty;
             const string dq = @"""";
             const string consTemp = @"@P_";
@@ -240,43 +215,35 @@ namespace AmarCodeGenerator
             return strParameter;
 
         }
-        public static string PrepareValueFromDB(string pType, string pValueName)
-        {
+        public static string PrepareValueFromDB(string pType, string pValueName) {
             string strModelAttributes = string.Empty;
-            switch (pType)
-            {
-                case "DateTime?":
-                    {
+            switch (pType) {
+                case "DateTime?": {
                         strModelAttributes = "Convert.ToDateTime(" + pValueName + ");";
                     }
                     break;
 
                 case "Int16?":
-                case "short?":
-                    {
+                case "short?": {
                         strModelAttributes = " Convert.ToInt16(" + pValueName + ");";
                     }
                     break;
                 case "int?":
-                case "Int32?":
-                    {
+                case "Int32?": {
                         strModelAttributes = " Convert.ToInt32(" + pValueName + ");";
                     }
                     break;
                 case "decimal?":
-                case "decimal":
-                    {
+                case "decimal": {
                         strModelAttributes = " Convert.ToDecimal(" + pValueName + ");";
                     }
                     break;
                 case "Int64?":
-                case "long?":
-                    {
+                case "long?": {
                         strModelAttributes = " Convert.ToInt64(" + pValueName + ");";
                     }
                     break;
-                default:
-                    { strModelAttributes = pValueName; }
+                default: { strModelAttributes = pValueName; }
                     break;
             }
 
@@ -284,59 +251,48 @@ namespace AmarCodeGenerator
             return strModelAttributes;
         }
 
-        public static string PrepareModelAttributeFromDB(ColumnModel column, string p)
-        {
+        public static string PrepareModelAttributeFromDB(ColumnModel column, string p) {
             string strModelAttributes = string.Empty;
-            switch (column.SYSType.Trim())
-            {
+            switch (column.SYSType.Trim()) {
                 case "DateTime":
-                case "DateTime?":
-                    {
+                case "DateTime?": {
                         strModelAttributes = "\r\n\t\t\t\tobj" + p + "." + column.SYSName + @"= dr[""" + column.DBName + @"""].Equals(DBNull.Value) ? DateTime.MinValue : Convert.ToDateTime(dr[""" + column.DBName + @"""].ToString());";
                     }
                     break;
-                case "Boolean":
-                    {
+                case "Boolean": {
                         strModelAttributes = "\r\n\t\t\t\tobj" + p + "." + column.SYSName + @"= dr[""" + column.DBName + @"""].Equals(DBNull.Value) ? false : Convert.ToBoolean(dr[""" + column.DBName + @"""].ToString());";
                     }
                     break;
                 case "Bool":
-                case "bool":
-                    {
+                case "bool": {
                         strModelAttributes = "\r\n\t\t\t\tobj" + p + "." + column.SYSName + @"= dr[""" + column.DBName + @"""].Equals(DBNull.Value) ? false : Convert.ToBoolean(dr[""" + column.DBName + @"""].ToString());";
                     }
                     break;
                 case "Int16?":
-                case "short?":
-                    {
+                case "short?": {
                         strModelAttributes = "\r\n\t\t\t\tobj" + p + "." + column.SYSName + @"= dr[""" + column.DBName + @"""].Equals(DBNull.Value) ? (short)0 : Convert.ToInt16(dr[""" + column.DBName + @"""].ToString());";
                     }
                     break;
 
-                case "Int32?":
-                    {
+                case "Int32?": {
                         strModelAttributes = "\r\n\t\t\t\tobj" + p + "." + column.SYSName + @"= dr[""" + column.DBName + @"""].Equals(DBNull.Value) ? 0 : Convert.ToInt32(dr[""" + column.DBName + @"""].ToString());";
                     }
                     break;
                 case "decimal?":
-                case "decimal":
-                    {
+                case "decimal": {
                         strModelAttributes = "\r\n\t\t\t\tobj" + p + "." + column.SYSName + @"= dr[""" + column.DBName + @"""].Equals(DBNull.Value) ? 0 : Convert.ToDecimal(dr[""" + column.DBName + @"""].ToString());";
                     }
                     break;
-                case "int?":
-                    {
+                case "int?": {
                         strModelAttributes = "\r\n\t\t\t\tobj" + p + "." + column.SYSName + @"= dr[""" + column.DBName + @"""].Equals(DBNull.Value) ? 0 : Convert.ToInt32(dr[""" + column.DBName + @"""].ToString());";
                     }
                     break;
                 case "Int64?":
-                case "long?":
-                    {
+                case "long?": {
                         strModelAttributes = "\r\n\t\t\t\tobj" + p + "." + column.SYSName + @"= dr[""" + column.DBName + @"""].Equals(DBNull.Value) ? 0 : Convert.ToInt64(dr[""" + column.DBName + @"""].ToString());";
                     }
                     break;
-                default:
-                    { strModelAttributes = "\r\n\t\t\t\tobj" + p + "." + column.SYSName + @"= dr[""" + column.DBName + @"""].Equals(DBNull.Value) ? string.Empty : dr[""" + column.DBName + @"""].ToString();"; }
+                default: { strModelAttributes = "\r\n\t\t\t\tobj" + p + "." + column.SYSName + @"= dr[""" + column.DBName + @"""].Equals(DBNull.Value) ? string.Empty : dr[""" + column.DBName + @"""].ToString();"; }
                     break;
             }
 
@@ -344,8 +300,7 @@ namespace AmarCodeGenerator
             return strModelAttributes;
         }
 
-        public static string PrepareMailContent(dynamic master, string pTemplateName)
-        {
+        public static string PrepareMailContent(dynamic master, string pTemplateName) {
             string dirName = AppDomain.CurrentDomain.BaseDirectory; // Starting Dir
             FileInfo fileInfo = new FileInfo(dirName);
             DirectoryInfo parentDir = fileInfo.Directory.Parent;
@@ -359,18 +314,18 @@ namespace AmarCodeGenerator
             StringBuilder sbContent = new StringBuilder();
             string TemplatePath = Path.GetFullPath(parentDirName2 + "\\Templates\\" + pTemplateName);
             var template = System.IO.File.ReadAllText(TemplatePath);
-            try
-            {
+            try {
                 //sbContent.Append(RazorEngine.Razor.Parse(template, master));
                 var templateService = new TemplateService();
                 sbContent.Append(templateService.Parse(template, master, null, null));
+            } catch (Exception ex)
+            {
+            
             }
-            catch (Exception ex) { }
             return sbContent.ToString();
         }
 
-        public static string PrepareMailContentWithTemplatePath(dynamic master, string pTemplateName,string path)
-        {
+        public static string PrepareMailContentWithTemplatePath(dynamic master, string pTemplateName, string path) {
             string dirName = AppDomain.CurrentDomain.BaseDirectory; // Starting Dir
             FileInfo fileInfo = new FileInfo(dirName);
             DirectoryInfo parentDir = fileInfo.Directory.Parent;
@@ -382,31 +337,26 @@ namespace AmarCodeGenerator
 
 
             StringBuilder sbContent = new StringBuilder();
-            string TemplatePath = Path.GetFullPath(parentDirName2 + "\\Templates\\"+ path + "\\" + pTemplateName);
+            string TemplatePath = Path.GetFullPath(parentDirName2 + "\\Templates\\" + path + "\\" + pTemplateName);
             var template = System.IO.File.ReadAllText(TemplatePath);
-            try
-            {
+            try {
                 //sbContent.Append(RazorEngine.Razor.Parse(template, master));
                 var templateService = new TemplateService();
                 sbContent.Append(templateService.Parse(template, master, null, null));
-            }
-            catch (Exception ex) { }
+            } catch (Exception ex) { }
             return sbContent.ToString();
         }
-        public static String RemoveUnderscoreAndTitleString(String s)
-        {
+        public static String RemoveUnderscoreAndTitleString(String s) {
             if (s == null) return s;
 
             String[] words = s.Split('_');
             //words.RemoveAt(0);
-            for (int i = 0; i < words.Length; i++)
-            {
+            for (int i = 0; i < words.Length; i++) {
                 if (words[i].Length == 0) continue;
 
                 Char firstChar = Char.ToUpper(words[i][0]);
                 String rest = "";
-                if (words[i].Length > 0)
-                {
+                if (words[i].Length > 0) {
                     rest = words[i].Substring(1).ToLower();
                 }
                 words[i] = firstChar + rest;
@@ -414,25 +364,32 @@ namespace AmarCodeGenerator
             return String.Join("", words, 0, words.Length);
         }
 
-        public static String RemoveUnderscoreAddSpaceAndUpperFirst(String s)
-        {
+        public static String RemoveUnderscoreAddSpaceAndUpperFirst(String s) {
             if (s == null) return s;
 
             String[] words = s.Split('_');
             //words.RemoveAt(0);
-            for (int i = 0; i < words.Length; i++)
-            {
+            for (int i = 0; i < words.Length; i++) {
                 if (words[i].Length == 0) continue;
 
                 Char firstChar = Char.ToUpper(words[i][0]);
                 String rest = "";
-                if (words[i].Length > 0)
-                {
+                if (words[i].Length > 0) {
                     rest = words[i].Substring(1).ToLower();
                 }
                 words[i] = firstChar + rest;
             }
             return String.Join(" ", words, 0, words.Length);
+        }
+
+        public static string FirstCharToLowerCase(string value) {
+            if (!string.IsNullOrEmpty(value) && char.IsUpper(value[0])) {
+                char firstChar = Char.ToLowerInvariant(value[0]);
+                if (value.Length == 1) return firstChar.ToString();
+                return firstChar + value.Substring(1);
+            }
+
+            return value;
         }
         //public static DbType GetDbType(object SystemType)
         //{
@@ -475,6 +432,6 @@ namespace AmarCodeGenerator
         //   return typeMap[typeof(SystemType)];
         //}
     }
-  
-    
+
+
 }

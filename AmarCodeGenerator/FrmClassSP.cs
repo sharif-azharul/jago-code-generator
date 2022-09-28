@@ -155,6 +155,7 @@ namespace AmarCodeGenerator
                             objModel.GenerateCreateFilterDtoFromTemplateAspNetZero(pTable);
                             objModel.GenerateOutputDtoFromTemplateAspNetZero(pTable);
                             objModel.GenerateUpdateDtoFromTemplateAspNetZero(pTable);
+                            objModel.GenerateServiceFromTemplateAspNetZero(pTable);
                             #endregion
 
                             #region XHR ---------------
@@ -443,7 +444,7 @@ namespace AmarCodeGenerator
             objTableModel.ZeroServiceInterfaceName = $"I{objTableModel.TableNameAsTitle}AppService";
             objTableModel.ZeroServiceName = $"{objTableModel.TableNameAsTitle}AppService";
             objTableModel.ZeroFolderName = $"{objTableModel.TableNameAsTitle}s";
-            
+            objTableModel.ZeroRepositoryVariableName = $"{CommonTask.FirstCharToLowerCase(objTableModel.TableNameAsTitle)}Repository";
 
             //===================================================================================================================change below
             //objTableModel.DotNetModelName = objTableModel.TableNameAsTitle;

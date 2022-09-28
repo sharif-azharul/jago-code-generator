@@ -316,7 +316,43 @@ namespace AmarCodeGenerator
             }
         }
 
-        
+        public void GenerateServiceFromTemplateAspNetZero(TableModel pTable) {
+            if (pTable != null) {
+                try {
+
+                    var folderPath = SessionUtility.RootFolderName  + @"\Service\";
+                    CommonTask.CreateDirectory(folderPath + pTable.ZeroFolderName + @"\");
+                    StreamWriter sw = null;
+                    System.Text.StringBuilder sb = null;
+                    //Stream myStream = null;
+
+                    #region Create Empty cs file
+                    sb = new System.Text.StringBuilder(folderPath + pTable.ZeroFolderName + @"\" + pTable.ZeroUpdateInputDtoName);
+                    // sb = new System.Text.StringBuilder(lstrTableName);
+                    sb.Append(".cs");
+                    FileInfo lobjFileInfo = new FileInfo(sb.ToString());
+                    sw = lobjFileInfo.CreateText();
+                    #endregion
+                    sb = new System.Text.StringBuilder();
+
+                    //CommonTask.CreateDirectory(SessionUtility.ModelFolder);
+                    sb.Append(CommonTask.PrepareMailContent(pTable, "ZeroServiceTemplate.html"));
+
+
+                    sw.WriteLine(sb.ToString());
+                    #region Close file
+                    if (sw != null) {
+                        //sw.WriteLine("\r\n\t}\r\n}");
+                        sw.Close();
+                    }
+                    #endregion
+
+                } catch (Exception ex) {
+                    throw ex;
+                }
+            }
+        }
+
         #endregion
         public void GenerateModelClassWithoutAnnotation(TableModel pTableModel)
         {

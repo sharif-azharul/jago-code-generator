@@ -92,7 +92,8 @@
             this.txtServerName.Name = "txtServerName";
             this.txtServerName.Size = new System.Drawing.Size(195, 20);
             this.txtServerName.TabIndex = 10;
-            this.txtServerName.Text = "AZHAR-PC\\SQLEXPRESS";
+            //this.txtServerName.Text = "AZHAR-PC\\SQLEXPRESS";
+            this.txtServerName.Text = "DESKTOP-BPLNFDB";
             // 
             // btnConnectDisconnect
             // 
@@ -121,7 +122,8 @@
             this.txtUserName.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.txtUserName.Size = new System.Drawing.Size(140, 20);
             this.txtUserName.TabIndex = 11;
-            this.txtUserName.Text = "injurycloud";
+            //this.txtUserName.Text = "injurycloud";
+            this.txtUserName.Text = "sa";
             // 
             // label10
             // 
@@ -138,7 +140,8 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(140, 20);
             this.txtPassword.TabIndex = 12;
-            this.txtPassword.Text = "Gr8Pe0ple!*$";
+            //this.txtPassword.Text = "Gr8Pe0ple!*$";
+            this.txtPassword.Text = "sa2016";
             // 
             // label7
             // 

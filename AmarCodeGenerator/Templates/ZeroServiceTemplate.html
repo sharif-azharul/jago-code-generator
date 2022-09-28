@@ -1,0 +1,46 @@
+﻿@model AmarCodeGenerator.TableModel
+
+    using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using Abp.Application.Services;
+using Abp.Application.Services.Dto;
+using Abp.Auditing;
+using Abp.Domain.Repositories;
+using Abp.UI;
+using LunaHR.Application.Leave.Shared.LeaveTypes;
+using LunaHR.Application.Leave.Shared.LeaveTypes.Dto;
+using LunaHR.Core.Application.ConfigurationInheritance;
+using LunaHR.Core.Application.ConfigurationInheritances;
+using LunaHR.Core.Application.Enums;
+using LunaHR.Core.Leave.LeaveTypes;
+using LunaHR.Core.Leave.UserLeaveAllowances;
+using LunaHR.Custom.Helpers.Extensions;
+using LunaHR.Custom.UserPreferences.Dto;
+using LunaHR.Custom.UserTasks;
+using LunaHR.Helpers.Extentions;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+
+namespace LunaHR.Application.Leave.LeaveTypes
+
+       {
+
+          public class @Model.ZeroServiceName :
+AsyncCrudAppService< @Model.TableNameAsTitle, @Model.ZeroOutputDtoName, int, @Model.ZeroFilterInputDtoName, @Model.ZeroCreateInputDtoName,
+                               @Model.ZeroUpdateInputDtoName, EntityDto< int>
+    , EntityDto< int>>, <text>
+    
+</text>
+
+    {
+    <text>        private readonly <text> </text>  < @Model.TableNameAsTitle>    _@Model.ZeroRepositoryVariableName; </text>
+    <text>public @Model.ZeroServiceInterfaceName( IRepository < @Model.ZeroServiceInterfaceName> @Model.ZeroRepositoryVariableName ) : base( @Model.ZeroServiceInterfaceName )</text>
+    {
+    _@Model.ZeroRepositoryVariableName = @Model.ZeroRepositoryVariableName;
+    }
+    }
+    }
+    }

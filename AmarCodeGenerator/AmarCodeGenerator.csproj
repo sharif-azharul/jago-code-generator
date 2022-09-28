@@ -209,6 +209,10 @@
     <Content Include="Templates\XHRController.html" />
     <Content Include="Templates\XHRGetListQueryHandler.html" />
     <Content Include="Templates\XHRGetQueryHandler.html" />
+    <Content Include="Templates\ZeroServiceInterfaceTemplate.html" />
+    <Content Include="Templates\ZeroServiceTemplate.html" />
+    <Content Include="Templates\ZeroControllerTemplate.html" />
+    <Content Include="Templates\ZeroDomainEntityTemplate.html" />
     <Content Include="Templates\ZeroModelUpdateInputTemplate.html" />
     <Content Include="Templates\ZeroModelOutputTemplate.html" />
     <Content Include="Templates\ZeroModelFilterInputTemplate.html" />

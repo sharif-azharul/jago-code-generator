@@ -1,0 +1,26 @@
+﻿@model AmarCodeGenerator.TableModel
+
+    using System.Collections.Generic;
+using System.Threading.Tasks;
+using Abp.Application.Services;
+using Abp.Application.Services.Dto;
+using LunaHR.Application.Leave.Shared.LeaveTypes.Dto;
+
+namespace LunaHR.Application.Leave.Shared.LeaveTypes
+{
+
+       {
+          public interface @Model.ZeroServiceInterfaceName  :
+AsyncCrudAppService< @Model.TableNameAsTitle, @Model.ZeroOutputDtoName, int, @Model.ZeroFilterInputDtoName, @Model.ZeroCreateInputDtoName,
+                               @Model.ZeroUpdateInputDtoName, EntityDto<int>
+    , EntityDto< int>>, @Model.ZeroServiceInterfaceName
+
+    {
+    private readonly IRepository< @Model.TableNameAsTitle>    _@Model.ZeroRepositoryVariableName;
+    <text>public @Model.ZeroServiceInterfaceName(IRepository< @Model.ZeroServiceInterfaceName> @Model.ZeroRepositoryVariableName ) : base( @Model.ZeroServiceInterfaceName )</text>
+    {
+    _@Model.ZeroRepositoryVariableName = @Model.ZeroRepositoryVariableName;
+    }
+    }
+    }
+    }

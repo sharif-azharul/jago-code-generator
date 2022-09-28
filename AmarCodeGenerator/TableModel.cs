@@ -76,5 +76,7 @@ namespace AmarCodeGenerator
         public string ZeroServiceName { get; set; }
         public string ZeroControllerName { get; set; }
         public string ZeroFolderName { get; set; }
+        public string ZeroRepositoryVariableName { get; set; }
+        public string ZeroServiceVariableName { get; set; }
     }
 }
