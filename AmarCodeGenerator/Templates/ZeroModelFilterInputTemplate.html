@@ -9,15 +9,8 @@
     namespace LunaHR.Application.Leave.Shared.LeaveTypes.Dto
 
        {
-          public class @Model.ZeroFilterInputDtoName
-
+          public class @Model.ZeroFilterInputDtoName : PagedAndSortedResultRequestDto
            {
-           @foreach(var property in Model.PropetyList)
-                {
-          if(@property.IsSkippable==false)
-              {
-<text>          public @property.SYSType @property.SYSName {get; set;}</text>
-                }
-                }
-        }
+           
+           }
     }

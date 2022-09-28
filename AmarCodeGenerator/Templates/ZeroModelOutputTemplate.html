@@ -9,9 +9,10 @@
     namespace LunaHR.Application.Leave.Shared.LeaveTypes.Dto
 
        {
-          public class @Model.ZeroOutputDtoName
+          public class @Model.ZeroOutputDtoName  : IEntityDto
 
            {
+            public int Id { get; set; }
            @foreach(var property in Model.PropetyList)
                 {
           if(@property.IsSkippable==false)

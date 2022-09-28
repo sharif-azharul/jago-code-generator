@@ -9,15 +9,31 @@
     namespace LunaHR.Application.Leave.Shared.LeaveTypes.Dto
 
        {
-          public class @Model.ZeroUpdateInputDtoName
+          public class @Model.ZeroUpdateInputDtoName  : IEntityDto
 
            {
+            [Required]
+            public int Id { get; set; }
            @foreach(var property in Model.PropetyList)
                 {
-          if(@property.IsSkippable==false)
-              {
-<text>          public @property.SYSType @property.SYSName {get; set;}</text>
+if (!@property.IsNullable)
+                {
+<text>[Required]</text>
                 }
+                if (@property.SYSType.ToLower() == "string")
+                {
+<text>[StringLength(@property.DBLength, ErrorMessage = "Maximum characters limit to @property.DBLength ")]</text>
+
                 }
-        }
+if (@property.SYSType.ToLower().Contains("int") && !@property.IsNullable)
+{
+<text>[Range(1,@("9".PadLeft(Convert.ToInt32(@property.DBLength), '9')) , ErrorMessage ="Value must be less tha or equal to @("9".PadLeft(Convert.ToInt32(@property.DBLength), '9'))"]</text>
+}
+if (@property.SYSType.ToLower().Contains("int") && @property.IsNullable)
+{
+<text>[Range(0,@("9".PadLeft(Convert.ToInt32(@property.DBLength), '9')) , ErrorMessage ="Value must be less tha or equal to @("9".PadLeft(Convert.ToInt32(@property.DBLength), '9'))"]</text>
+}
+<text>    public @property.SYSType @property.SYSName {get; set;}</text>
+    }
+    }
     }
