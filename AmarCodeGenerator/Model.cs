@@ -327,7 +327,7 @@ namespace AmarCodeGenerator
                     //Stream myStream = null;
 
                     #region Create Empty cs file
-                    sb = new System.Text.StringBuilder(folderPath + pTable.ZeroFolderName + @"\" + pTable.ZeroUpdateInputDtoName);
+                    sb = new System.Text.StringBuilder(folderPath + pTable.ZeroFolderName + @"\" + pTable.ZeroServiceName);
                     // sb = new System.Text.StringBuilder(lstrTableName);
                     sb.Append(".cs");
                     FileInfo lobjFileInfo = new FileInfo(sb.ToString());
@@ -339,7 +339,7 @@ namespace AmarCodeGenerator
                     sb.Append(CommonTask.PrepareMailContent(pTable, "ZeroServiceTemplate.html"));
 
 
-                    sw.WriteLine(sb.ToString());
+                    sw.WriteLine(sb.ToString().Replace("--",""));
                     #region Close file
                     if (sw != null) {
                         //sw.WriteLine("\r\n\t}\r\n}");
