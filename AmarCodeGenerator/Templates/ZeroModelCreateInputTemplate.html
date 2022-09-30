@@ -1,12 +1,12 @@
 ﻿@model AmarCodeGenerator.TableModel
 
-    using Abp.Application.Services.Dto;
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Text;
+using Abp.Domain.Entities.Auditing;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 
-    namespace LunaHR.Application.Leave.Shared.LeaveTypes.Dto
+    namespace MMH. @Model.ZeroFolderName .Dto
 
        {
           public class @Model.ZeroCreateInputDtoName
@@ -24,11 +24,11 @@
                 }
 if (@property.SYSType.ToLower().Contains("int") && !@property.IsNullable)
 {
-<text>[Range(1,@("9".PadLeft(Convert.ToInt32(@property.DBLength), '9')) , ErrorMessage ="Value must be less than or equal to @("9".PadLeft(Convert.ToInt32(@property.DBLength), '9'))"]</text>
+<text>[Range(1,@("9".PadLeft(Convert.ToInt32(@property.DBLength), '9')) , ErrorMessage ="Value must be less than or equal to @("9".PadLeft(Convert.ToInt32(@property.DBLength), '9'))")]</text>
 }
 if (@property.SYSType.ToLower().Contains("int") && @property.IsNullable)
 {
-<text>[Range(0,@("9".PadLeft(Convert.ToInt32(@property.DBLength), '9')) , ErrorMessage ="Value must be less than or equal to @("9".PadLeft(Convert.ToInt32(@property.DBLength), '9'))"]</text>
+<text>[Range(0,@("9".PadLeft(Convert.ToInt32(@property.DBLength), '9')) , ErrorMessage ="Value must be less than or equal to @("9".PadLeft(Convert.ToInt32(@property.DBLength), '9'))")]</text>
 }
 <text>    public @property.SYSType @property.SYSName {get; set;}</text>
     }

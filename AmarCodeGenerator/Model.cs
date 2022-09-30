@@ -438,7 +438,42 @@ namespace AmarCodeGenerator
                 }
             }
         }
-        #endregion
+
+        public void GenerateEntityFromTemplateAspNetZero(TableModel pTable) {
+            if (pTable != null) {
+                try {
+                    CommonTask.CreateDirectory(SessionUtility.RootFolderName  + @"\Entity\Custom\" + pTable.ZeroFolderName );
+                    StreamWriter sw = null;
+                    System.Text.StringBuilder sb = null;
+                    //Stream myStream = null;
+
+                    #region Create Empty cs file
+                    sb = new System.Text.StringBuilder(SessionUtility.RootFolderName  + @"\Entity\Custom\" + pTable.ZeroFolderName + @"\" + pTable.TableNameAsTitle);
+                    // sb = new System.Text.StringBuilder(lstrTableName);
+                    sb.Append(".cs");
+                    FileInfo lobjFileInfo = new FileInfo(sb.ToString());
+                    sw = lobjFileInfo.CreateText();
+                    #endregion
+                    sb = new System.Text.StringBuilder();
+
+                    //CommonTask.CreateDirectory(SessionUtility.ModelFolder);
+                    sb.Append(CommonTask.PrepareMailContent(pTable, "ZeroDomainEntityTemplate.html"));
+
+
+                    sw.WriteLine(sb.ToString());
+                    #region Close file
+                    if (sw != null) {
+                        //sw.WriteLine("\r\n\t}\r\n}");
+                        sw.Close();
+                    }
+                    #endregion
+
+                } catch (Exception ex) {
+                    throw ex;
+                }
+            }
+        }
+        #endregion  --ASP NET ZERO END
         public void GenerateModelClassWithoutAnnotation(TableModel pTableModel)
         {
             try

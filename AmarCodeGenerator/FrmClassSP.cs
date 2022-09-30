@@ -158,6 +158,7 @@ namespace AmarCodeGenerator
                             objModel.GenerateServiceFromTemplateAspNetZero(pTable);
                             objModel.GenerateControllerFromTemplateAspNetZero(pTable);
                             objModel.GenerateServiceInterfaceFromTemplateAspNetZero(pTable);
+                            objModel.GenerateEntityFromTemplateAspNetZero(pTable);
                             #endregion
 
                             #region XHR ---------------
