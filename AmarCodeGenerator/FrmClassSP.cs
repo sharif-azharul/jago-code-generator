@@ -156,6 +156,8 @@ namespace AmarCodeGenerator
                             objModel.GenerateOutputDtoFromTemplateAspNetZero(pTable);
                             objModel.GenerateUpdateDtoFromTemplateAspNetZero(pTable);
                             objModel.GenerateServiceFromTemplateAspNetZero(pTable);
+                            objModel.GenerateControllerFromTemplateAspNetZero(pTable);
+                            objModel.GenerateServiceInterfaceFromTemplateAspNetZero(pTable);
                             #endregion
 
                             #region XHR ---------------
@@ -445,6 +447,8 @@ namespace AmarCodeGenerator
             objTableModel.ZeroServiceName = $"{objTableModel.TableNameAsTitle}AppService";
             objTableModel.ZeroFolderName = $"{objTableModel.TableNameAsTitle}s";
             objTableModel.ZeroRepositoryVariableName = $"{CommonTask.FirstCharToLowerCase(objTableModel.TableNameAsTitle)}Repository";
+            objTableModel.ZeroServiceVariableName = $"{CommonTask.FirstCharToLowerCase(objTableModel.TableNameAsTitle)}Service";
+            objTableModel.ZeroRouteRootName =  $"Route_{objTableModel.TableNameAsTitle}";
 
             //===================================================================================================================change below
             //objTableModel.DotNetModelName = objTableModel.TableNameAsTitle;

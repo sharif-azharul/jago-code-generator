@@ -10,17 +10,10 @@ namespace LunaHR.Application.Leave.Shared.LeaveTypes
 {
 
        {
-          public interface @Model.ZeroServiceInterfaceName  :
-AsyncCrudAppService< @Model.TableNameAsTitle, @Model.ZeroOutputDtoName, int, @Model.ZeroFilterInputDtoName, @Model.ZeroCreateInputDtoName,
-                               @Model.ZeroUpdateInputDtoName, EntityDto<int>
-    , EntityDto< int>>, @Model.ZeroServiceInterfaceName
+          public interface @Model.ZeroServiceInterfaceName   : IAsyncCrudAppService < @Model.ZeroFilterInputDtoName, @Model.ZeroOutputDtoName, int, @Model.ZeroFilterInputDtoName, @Model.ZeroCreateInputDtoName, @Model.ZeroUpdateInputDtoName, EntityDto < int > , EntityDto < int >>, @Model.ZeroServiceInterfaceName
 
     {
-    private readonly IRepository< @Model.TableNameAsTitle>    _@Model.ZeroRepositoryVariableName;
-    <text>public @Model.ZeroServiceInterfaceName(IRepository< @Model.ZeroServiceInterfaceName> @Model.ZeroRepositoryVariableName ) : base( @Model.ZeroServiceInterfaceName )</text>
-    {
-    _@Model.ZeroRepositoryVariableName = @Model.ZeroRepositoryVariableName;
+
     }
     }
-    }
-    }
+

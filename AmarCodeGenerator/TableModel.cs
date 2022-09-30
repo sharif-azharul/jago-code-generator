@@ -78,5 +78,6 @@ namespace AmarCodeGenerator
         public string ZeroFolderName { get; set; }
         public string ZeroRepositoryVariableName { get; set; }
         public string ZeroServiceVariableName { get; set; }
+        public string ZeroRouteRootName { get; set; }
     }
 }

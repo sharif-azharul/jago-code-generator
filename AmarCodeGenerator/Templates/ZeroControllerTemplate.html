@@ -14,12 +14,26 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace LunaHR.Web.Controllers.Leave
 {
-    [Route(AppRouteNames.Route_LeaveType)]
+    [Route(AppRouteNames. @Model.ZeroRouteRootName)]
     [AbpMvcAuthorize]
-          public class @Model.ZeroControllerName : [[REPLACED]]
+          public class @Model.ZeroControllerName : LunaHRApiControllerBase < @Model.ZeroOutputDtoName, int, @Model.ZeroFilterInputDtoName,  @Model.ZeroCreateInputDtoName, @Model.ZeroUpdateInputDtoName, EntityDto < int > , EntityDto < int >>
 
            {
+#region variables
+           private readonly   @Model.ZeroServiceInterfaceName   _@Model.ZeroServiceVariableName;
+#endregion
 
+#region constructor
+    public @Model.ZeroControllerName ( @Model.ZeroServiceInterfaceName  @Model.ZeroServiceVariableName ) : base( @Model.ZeroServiceVariableName )
+    {
+    _@Model.ZeroServiceVariableName = @Model.ZeroServiceVariableName;
     }
+#endregion
+
+
+// Your code here...
+#region custom methods
+
+#endregion
     }
     }
