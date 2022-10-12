@@ -179,13 +179,13 @@ namespace AmarCodeGenerator
         public void GenerateCreateInputDtoFromTemplateAspNetZero(TableModel pTable) {
             if (pTable != null) {
                 try {
-                    CommonTask.CreateDirectory(SessionUtility.ModelFolder + pTable.ZeroFolderName + @"\Dto\");
+                    CommonTask.CreateDirectory(SessionUtility.ModelFolder + pTable.TableSchemaName + "\\" + pTable.ZeroFolderName + @"\Dto\");
                     StreamWriter sw = null;
                     System.Text.StringBuilder sb = null;
                     //Stream myStream = null;
 
                     #region Create Empty cs file
-                    sb = new System.Text.StringBuilder(SessionUtility.ModelFolder + pTable.ZeroFolderName+@"\Dto\" + pTable.ZeroCreateInputDtoName);
+                    sb = new System.Text.StringBuilder(SessionUtility.ModelFolder + pTable.TableSchemaName + "\\" + pTable.ZeroFolderName+@"\Dto\" + pTable.ZeroCreateInputDtoName);
                     // sb = new System.Text.StringBuilder(lstrTableName);
                     sb.Append(".cs");
                     FileInfo lobjFileInfo = new FileInfo(sb.ToString());
@@ -214,13 +214,13 @@ namespace AmarCodeGenerator
         public void GenerateCreateFilterDtoFromTemplateAspNetZero(TableModel pTable) {
             if (pTable != null) {
                 try {
-                    CommonTask.CreateDirectory(SessionUtility.ModelFolder + pTable.ZeroFolderName + @"\Dto\");
+                    CommonTask.CreateDirectory(SessionUtility.ModelFolder + pTable.TableSchemaName + "\\" + pTable.ZeroFolderName + @"\Dto\");
                     StreamWriter sw = null;
                     System.Text.StringBuilder sb = null;
                     //Stream myStream = null;
 
                     #region Create Empty cs file
-                    sb = new System.Text.StringBuilder(SessionUtility.ModelFolder + pTable.ZeroFolderName + @"\Dto\" + pTable.ZeroFilterInputDtoName);
+                    sb = new System.Text.StringBuilder(SessionUtility.ModelFolder + pTable.TableSchemaName + "\\" + pTable.ZeroFolderName + @"\Dto\" + pTable.ZeroFilterInputDtoName);
                     // sb = new System.Text.StringBuilder(lstrTableName);
                     sb.Append(".cs");
                     FileInfo lobjFileInfo = new FileInfo(sb.ToString());
@@ -249,13 +249,13 @@ namespace AmarCodeGenerator
         public void GenerateOutputDtoFromTemplateAspNetZero(TableModel pTable) {
             if (pTable != null) {
                 try {
-                    CommonTask.CreateDirectory(SessionUtility.ModelFolder + pTable.ZeroFolderName + @"\Dto\");
+                    CommonTask.CreateDirectory(SessionUtility.ModelFolder + pTable.TableSchemaName + "\\" + pTable.ZeroFolderName + @"\Dto\");
                     StreamWriter sw = null;
                     System.Text.StringBuilder sb = null;
                     //Stream myStream = null;
 
                     #region Create Empty cs file
-                    sb = new System.Text.StringBuilder(SessionUtility.ModelFolder + pTable.ZeroFolderName + @"\Dto\" + pTable.ZeroOutputDtoName);
+                    sb = new System.Text.StringBuilder(SessionUtility.ModelFolder + pTable.TableSchemaName + "\\" + pTable.ZeroFolderName + @"\Dto\" + pTable.ZeroOutputDtoName);
                     // sb = new System.Text.StringBuilder(lstrTableName);
                     sb.Append(".cs");
                     FileInfo lobjFileInfo = new FileInfo(sb.ToString());
@@ -284,13 +284,13 @@ namespace AmarCodeGenerator
         public void GenerateUpdateDtoFromTemplateAspNetZero(TableModel pTable) {
             if (pTable != null) {
                 try {
-                    CommonTask.CreateDirectory(SessionUtility.ModelFolder + pTable.ZeroFolderName + @"\Dto\");
+                    CommonTask.CreateDirectory(SessionUtility.ModelFolder + pTable.TableSchemaName + "\\" + pTable.ZeroFolderName + @"\Dto\");
                     StreamWriter sw = null;
                     System.Text.StringBuilder sb = null;
                     //Stream myStream = null;
 
                     #region Create Empty cs file
-                    sb = new System.Text.StringBuilder(SessionUtility.ModelFolder + pTable.ZeroFolderName + @"\Dto\" + pTable.ZeroUpdateInputDtoName);
+                    sb = new System.Text.StringBuilder(SessionUtility.ModelFolder + pTable.TableSchemaName + "\\" + pTable.ZeroFolderName + @"\Dto\" + pTable.ZeroUpdateInputDtoName);
                     // sb = new System.Text.StringBuilder(lstrTableName);
                     sb.Append(".cs");
                     FileInfo lobjFileInfo = new FileInfo(sb.ToString());
@@ -321,13 +321,13 @@ namespace AmarCodeGenerator
                 try {
 
                     var folderPath = SessionUtility.RootFolderName  + @"\Service\";
-                    CommonTask.CreateDirectory(folderPath + pTable.ZeroFolderName + @"\");
+                    CommonTask.CreateDirectory(folderPath + pTable.TableSchemaName + "\\" + pTable.ZeroFolderName + @"\");
                     StreamWriter sw = null;
                     System.Text.StringBuilder sb = null;
                     //Stream myStream = null;
 
                     #region Create Empty cs file
-                    sb = new System.Text.StringBuilder(folderPath + pTable.ZeroFolderName + @"\" + pTable.ZeroServiceName);
+                    sb = new System.Text.StringBuilder(folderPath + pTable.TableSchemaName + "\\" + pTable.ZeroFolderName + @"\" + pTable.ZeroServiceName);
                     // sb = new System.Text.StringBuilder(lstrTableName);
                     sb.Append(".cs");
                     FileInfo lobjFileInfo = new FileInfo(sb.ToString());
@@ -361,13 +361,13 @@ namespace AmarCodeGenerator
                 {
 
                     //var folderPath = SessionUtility.RootFolderName + @"\Service\";
-                    CommonTask.CreateDirectory(SessionUtility.ModelFolder + pTable.ZeroFolderName + @"\");
+                    CommonTask.CreateDirectory(SessionUtility.ModelFolder+pTable.TableSchemaName + "\\" + pTable.ZeroFolderName + @"\");
                     StreamWriter sw = null;
                     System.Text.StringBuilder sb = null;
                     //Stream myStream = null;
 
                     #region Create Empty cs file
-                    sb = new System.Text.StringBuilder(SessionUtility.ModelFolder + pTable.ZeroFolderName + @"\" + pTable.ZeroServiceInterfaceName);
+                    sb = new System.Text.StringBuilder(SessionUtility.ModelFolder + pTable.TableSchemaName + "\\" + pTable.ZeroFolderName + @"\" + pTable.ZeroServiceInterfaceName);
                     // sb = new System.Text.StringBuilder(lstrTableName);
                     sb.Append(".cs");
                     FileInfo lobjFileInfo = new FileInfo(sb.ToString());
@@ -403,7 +403,7 @@ namespace AmarCodeGenerator
                 try
                 {
 
-                    var folderPath = SessionUtility.RootFolderName + @"\Controlller\";
+                    var folderPath = SessionUtility.RootFolderName + @"\Controlller\"+pTable.TableSchemaName+"\\";
                     CommonTask.CreateDirectory(folderPath );
                     StreamWriter sw = null;
                     System.Text.StringBuilder sb = null;
@@ -442,13 +442,13 @@ namespace AmarCodeGenerator
         public void GenerateEntityFromTemplateAspNetZero(TableModel pTable) {
             if (pTable != null) {
                 try {
-                    CommonTask.CreateDirectory(SessionUtility.RootFolderName  + @"\Entity\Custom\" + pTable.ZeroFolderName );
+                    CommonTask.CreateDirectory(SessionUtility.RootFolderName  + @"\Entity\Custom\" + pTable.TableSchemaName + "\\" + pTable.ZeroFolderName );
                     StreamWriter sw = null;
                     System.Text.StringBuilder sb = null;
                     //Stream myStream = null;
 
                     #region Create Empty cs file
-                    sb = new System.Text.StringBuilder(SessionUtility.RootFolderName  + @"\Entity\Custom\" + pTable.ZeroFolderName + @"\" + pTable.TableNameAsTitle);
+                    sb = new System.Text.StringBuilder(SessionUtility.RootFolderName  + @"\Entity\Custom\" + pTable.TableSchemaName + "\\" + pTable.ZeroFolderName + @"\" + pTable.TableNameAsTitle);
                     // sb = new System.Text.StringBuilder(lstrTableName);
                     sb.Append(".cs");
                     FileInfo lobjFileInfo = new FileInfo(sb.ToString());

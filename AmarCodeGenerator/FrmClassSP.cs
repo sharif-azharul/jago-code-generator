@@ -293,8 +293,8 @@ namespace AmarCodeGenerator
 
                 strTable = chkListBoxDataBaseTables.GetItemText(chkListBoxDataBaseTables.Items[indexChecked]);
                 TableModel objTableModel = new TableModel();
-                objTableModel = GetTableAttributes(strTable);
-                objTableList.Add(objTableModel);
+                //objTableModel = GetTableAttributes(strTable);
+                objTableList.AddRange(GetTableAttributes(strTable));
             }
 
             foreach (var Table in objTableList)
@@ -356,9 +356,11 @@ namespace AmarCodeGenerator
             }
             return objHeirarchyTableList;
         }
-        private TableModel GetTableAttributes(string strTableName)
+        private List<TableModel> GetTableAttributes(string strTableName)
         {
+            List<TableModel> oList = new List<TableModel>();
             string TableSchemaName = "dbo";
+            List<string> TableSchemaList = new List<string>();
             try
             {
                 Database db = new SqlDatabase(SessionUtility.SQL_CONN_STRING);
@@ -369,136 +371,10 @@ namespace AmarCodeGenerator
 
                     using (IDataReader dr = db.ExecuteReader(cmd))
                     {
-                        if (dr.Read())
-                        {
-                            TableSchemaName = dr["TABLE_SCHEMA"].ToString();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            //SqlDataReader dr = null;
-            TableModel objTableModel = new TableModel();
-            objTableModel.PropetyList = new List<ColumnModel>();
-            objTableModel.OriginalTableName = strTableName;
-            objTableModel.TableNameAsTitle = strTableName.Substring(SessionUtility.SkippingTableName, strTableName.Length - SessionUtility.SkippingTableName);//GenerateModelName(strTableName);
-            if (SessionUtility.IsTableHasUnderline)
-            {
-                objTableModel.TableNameAsTitle = CommonTask.RemoveUnderscoreAndTitleString(objTableModel.TableNameAsTitle);
-            }
-
-            objTableModel.ObjectName = "obj" + objTableModel.TableNameAsTitle;
-            objTableModel.MethodSaveName = "Save" + objTableModel.TableNameAsTitle;
-            objTableModel.MethodGetByKeyName = "Get" + objTableModel.TableNameAsTitle + "ByKey";
-            objTableModel.MethodGetByAllName = "Get" + objTableModel.TableNameAsTitle + "ByAll";
-            objTableModel.MethodGetBySearchName = "Get" + objTableModel.TableNameAsTitle + "BySearch";
-            objTableModel.MethodDeleteName = "Delete" + objTableModel.TableNameAsTitle;
-            objTableModel.TableSchemaName = TableSchemaName;
-
-            objTableModel.UpdateConstructorName = "Update" + objTableModel.OriginalTableName;
-            objTableModel.CommandVMName = objTableModel.OriginalTableName + "CommandVM";
-            objTableModel.QueriesVMName = objTableModel.OriginalTableName + "VM";
-            objTableModel.GetListMethodName = "Get" + objTableModel.OriginalTableName + "List";
-            objTableModel.GetMethodName = "Get" + objTableModel.OriginalTableName;
-
-            objTableModel.GetListQueryHandlerName = "Get" + objTableModel.OriginalTableName + "ListQueryHandler";
-            objTableModel.GetQueryHandlerName = "Get" + objTableModel.OriginalTableName + "QueryHandler";
-            objTableModel.GetListDBFunctionName = "Get" + objTableModel.OriginalTableName + "List";
-            objTableModel.GetDBFunctionName = "Get" + objTableModel.OriginalTableName + "ById";
-            //Command name
-            objTableModel.CreateCommandName = "Create" + objTableModel.OriginalTableName;
-            objTableModel.UpdateCommandName = "Update" + objTableModel.OriginalTableName;
-            objTableModel.DeleteCommandName = "MarkAsDelete" + objTableModel.OriginalTableName;
-
-            objTableModel.SPSaveName = "FSP_" + objTableModel.OriginalTableName + "_INSERT_UPDATE";
-            objTableModel.SPGetByKeyName = "FSP_" + objTableModel.OriginalTableName + "_GK";
-            objTableModel.SPGetByAllName = "FSP_" + objTableModel.OriginalTableName + "_GA";
-            objTableModel.SPGetBySearchName = "FSP_" + objTableModel.OriginalTableName + "_SEARCH";
-            objTableModel.SPDeleteName = "FSP_" + objTableModel.OriginalTableName + "_DELETE";
-            objTableModel.ControllerName = objTableModel.OriginalTableName + "Controller";
-
-            objTableModel.DisplayName = objTableModel.TableNameAsTitle.Contains("_") ? CommonTask.RemoveUnderscoreAddSpaceAndUpperFirst(objTableModel.TableNameAsTitle)
-                : AddSpacesBeforeUppercaseLetter(objTableModel.TableNameAsTitle);
-            //objTableModel.ControllerName = objTableModel.TableNameAsTitle + "Controller";
-            objTableModel.IndexViewPageName = "Index";
-            objTableModel.EditViewPageName = "Edit";
-            objTableModel.CreateViewPageName = "Create";
-
-            objTableModel.DotNetModelName = objTableModel.TableNameAsTitle + "Model";
-            objTableModel.DotNetBLLName = objTableModel.TableNameAsTitle + "BLL";
-            objTableModel.DotNetDataContextName = objTableModel.TableNameAsTitle + "DC";
-            objTableModel.DotNetIBLLIntName = "I" + objTableModel.TableNameAsTitle + "BLL";
-            objTableModel.DotNetInterfaceName = (IsModelInterfaceRequired ? "" : "I") + objTableModel.TableNameAsTitle;
-
-            objTableModel.RepositoryName = string.Format("{0}Repository", objTableModel.TableNameAsTitle);
-            objTableModel.RepositoryInterfaceName = string.Format("I{0}Repository", objTableModel.TableNameAsTitle);
-
-
-            // ASPNET ZERO Properties
-            objTableModel.ZeroControllerName = $"{objTableModel.TableNameAsTitle}ApiController";
-            objTableModel.ZeroCreateInputDtoName = $"{objTableModel.TableNameAsTitle}CreateInput";
-            objTableModel.ZeroFilterInputDtoName = $"{objTableModel.TableNameAsTitle}FilterInput";
-            objTableModel.ZeroOutputDtoName = $"{objTableModel.TableNameAsTitle}Output";
-            objTableModel.ZeroUpdateInputDtoName = $"{objTableModel.TableNameAsTitle}UpdateInput";
-            objTableModel.ZeroServiceInterfaceName = $"I{objTableModel.TableNameAsTitle}AppService";
-            objTableModel.ZeroServiceName = $"{objTableModel.TableNameAsTitle}AppService";
-            objTableModel.ZeroFolderName = $"{objTableModel.TableNameAsTitle}s";
-            objTableModel.ZeroRepositoryVariableName = $"{CommonTask.FirstCharToLowerCase(objTableModel.TableNameAsTitle)}Repository";
-            objTableModel.ZeroServiceVariableName = $"{CommonTask.FirstCharToLowerCase(objTableModel.TableNameAsTitle)}Service";
-            objTableModel.ZeroRouteRootName =  $"Route_{objTableModel.TableNameAsTitle}";
-
-            //===================================================================================================================change below
-            //objTableModel.DotNetModelName = objTableModel.TableNameAsTitle;
-
-            List<ColumnModel> objColumnList = new List<ColumnModel>();
-            try
-            {
-                //Get table attributes
-                //string strSQLquery = "SELECT table_name,column_name,data_type FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + strTableName + " ' ";
-
-                StringBuilder sbSQL = new StringBuilder();
-
-                sbSQL.AppendLine("   SELECT ");
-                sbSQL.AppendLine("  c.name 'Column_Name', ");
-                sbSQL.AppendLine("  t.Name 'Data_Type', ");
-                sbSQL.AppendLine("  c.max_length 'Max_Length', ");
-                sbSQL.AppendLine("  c.precision , ");
-                sbSQL.AppendLine("  c.scale , ");
-                sbSQL.AppendLine("  c.is_nullable, ");
-                sbSQL.AppendLine("  ISNULL(i.is_primary_key, 0) 'is_primary_key' ");
-                sbSQL.AppendLine(" FROM     ");
-                sbSQL.AppendLine("     sys.columns c ");
-                sbSQL.AppendLine(" INNER JOIN  ");
-                sbSQL.AppendLine("     sys.types t ON c.user_type_id = t.user_type_id ");
-                sbSQL.AppendLine(" LEFT OUTER JOIN  ");
-                sbSQL.AppendLine("     sys.index_columns ic ON ic.object_id = c.object_id AND ic.column_id = c.column_id ");
-                sbSQL.AppendLine(" LEFT OUTER JOIN  ");
-                sbSQL.AppendLine("     sys.indexes i ON ic.object_id = i.object_id AND ic.index_id = i.index_id ");
-                sbSQL.AppendLine(" WHERE ");
-                sbSQL.AppendLine(" c.object_id = OBJECT_ID('" + TableSchemaName + "." + strTableName + "') ");
-
-                Database db = new SqlDatabase(SessionUtility.SQL_CONN_STRING);
-                DbCommand cmd = db.GetSqlStringCommand(sbSQL.ToString());
-                using (DbConnection cn = db.CreateConnection())
-                {
-                    cn.Open();
-
-                    using (IDataReader dr = db.ExecuteReader(cmd))
-                    {
-
-
-                        //return dr;
                         while (dr.Read())
                         {
-                            ColumnModel objColumn = new ColumnModel();
-                            objColumn = BuildModel(objColumn, dr);
-                            objColumnList.Add(objColumn);
+                            TableSchemaList.Add( dr["TABLE_SCHEMA"].ToString());
                         }
-
                     }
                 }
             }
@@ -506,19 +382,138 @@ namespace AmarCodeGenerator
             {
                 throw ex;
             }
+            foreach (var item in TableSchemaList) {
 
-            objTableModel.PropetyList.AddRange(objColumnList);
-            if (objColumnList.FindAll(c => c.IsPrimayKey == true).Count > 1)
-            {
-                objTableModel.HasCompositeKey = true;
+
+                //SqlDataReader dr = null;
+                TableModel objTableModel = new TableModel();
+                objTableModel.PropetyList = new List<ColumnModel>();
+                objTableModel.OriginalTableName = strTableName;
+                objTableModel.TableNameAsTitle = strTableName.Substring(SessionUtility.SkippingTableName, strTableName.Length - SessionUtility.SkippingTableName);//GenerateModelName(strTableName);
+                if (SessionUtility.IsTableHasUnderline) {
+                    objTableModel.TableNameAsTitle = CommonTask.RemoveUnderscoreAndTitleString(objTableModel.TableNameAsTitle);
+                }
+
+                objTableModel.ObjectName = "obj" + objTableModel.TableNameAsTitle;
+                objTableModel.MethodSaveName = "Save" + objTableModel.TableNameAsTitle;
+                objTableModel.MethodGetByKeyName = "Get" + objTableModel.TableNameAsTitle + "ByKey";
+                objTableModel.MethodGetByAllName = "Get" + objTableModel.TableNameAsTitle + "ByAll";
+                objTableModel.MethodGetBySearchName = "Get" + objTableModel.TableNameAsTitle + "BySearch";
+                objTableModel.MethodDeleteName = "Delete" + objTableModel.TableNameAsTitle;
+                objTableModel.TableSchemaName = item;
+
+                objTableModel.UpdateConstructorName = "Update" + objTableModel.OriginalTableName;
+                objTableModel.CommandVMName = objTableModel.OriginalTableName + "CommandVM";
+                objTableModel.QueriesVMName = objTableModel.OriginalTableName + "VM";
+                objTableModel.GetListMethodName = "Get" + objTableModel.OriginalTableName + "List";
+                objTableModel.GetMethodName = "Get" + objTableModel.OriginalTableName;
+
+                objTableModel.GetListQueryHandlerName = "Get" + objTableModel.OriginalTableName + "ListQueryHandler";
+                objTableModel.GetQueryHandlerName = "Get" + objTableModel.OriginalTableName + "QueryHandler";
+                objTableModel.GetListDBFunctionName = "Get" + objTableModel.OriginalTableName + "List";
+                objTableModel.GetDBFunctionName = "Get" + objTableModel.OriginalTableName + "ById";
+                //Command name
+                objTableModel.CreateCommandName = "Create" + objTableModel.OriginalTableName;
+                objTableModel.UpdateCommandName = "Update" + objTableModel.OriginalTableName;
+                objTableModel.DeleteCommandName = "MarkAsDelete" + objTableModel.OriginalTableName;
+
+                objTableModel.SPSaveName = "FSP_" + objTableModel.OriginalTableName + "_INSERT_UPDATE";
+                objTableModel.SPGetByKeyName = "FSP_" + objTableModel.OriginalTableName + "_GK";
+                objTableModel.SPGetByAllName = "FSP_" + objTableModel.OriginalTableName + "_GA";
+                objTableModel.SPGetBySearchName = "FSP_" + objTableModel.OriginalTableName + "_SEARCH";
+                objTableModel.SPDeleteName = "FSP_" + objTableModel.OriginalTableName + "_DELETE";
+                objTableModel.ControllerName = objTableModel.OriginalTableName + "Controller";
+
+                objTableModel.DisplayName = objTableModel.TableNameAsTitle.Contains("_") ? CommonTask.RemoveUnderscoreAddSpaceAndUpperFirst(objTableModel.TableNameAsTitle)
+                    : AddSpacesBeforeUppercaseLetter(objTableModel.TableNameAsTitle);
+                //objTableModel.ControllerName = objTableModel.TableNameAsTitle + "Controller";
+                objTableModel.IndexViewPageName = "Index";
+                objTableModel.EditViewPageName = "Edit";
+                objTableModel.CreateViewPageName = "Create";
+
+                objTableModel.DotNetModelName = objTableModel.TableNameAsTitle + "Model";
+                objTableModel.DotNetBLLName = objTableModel.TableNameAsTitle + "BLL";
+                objTableModel.DotNetDataContextName = objTableModel.TableNameAsTitle + "DC";
+                objTableModel.DotNetIBLLIntName = "I" + objTableModel.TableNameAsTitle + "BLL";
+                objTableModel.DotNetInterfaceName = (IsModelInterfaceRequired ? "" : "I") + objTableModel.TableNameAsTitle;
+
+                objTableModel.RepositoryName = string.Format("{0}Repository", objTableModel.TableNameAsTitle);
+                objTableModel.RepositoryInterfaceName = string.Format("I{0}Repository", objTableModel.TableNameAsTitle);
+
+
+                // ASPNET ZERO Properties
+                objTableModel.ZeroControllerName = $"{objTableModel.TableNameAsTitle}ApiController";
+                objTableModel.ZeroCreateInputDtoName = $"{objTableModel.TableNameAsTitle}CreateInput";
+                objTableModel.ZeroFilterInputDtoName = $"{objTableModel.TableNameAsTitle}FilterInput";
+                objTableModel.ZeroOutputDtoName = $"{objTableModel.TableNameAsTitle}Output";
+                objTableModel.ZeroUpdateInputDtoName = $"{objTableModel.TableNameAsTitle}UpdateInput";
+                objTableModel.ZeroServiceInterfaceName = $"I{objTableModel.TableNameAsTitle}AppService";
+                objTableModel.ZeroServiceName = $"{objTableModel.TableNameAsTitle}AppService";
+                objTableModel.ZeroFolderName = $"{objTableModel.TableNameAsTitle}s";
+                objTableModel.ZeroRepositoryVariableName = $"{CommonTask.FirstCharToLowerCase(objTableModel.TableNameAsTitle)}Repository";
+                objTableModel.ZeroServiceVariableName = $"{CommonTask.FirstCharToLowerCase(objTableModel.TableNameAsTitle)}Service";
+                objTableModel.ZeroRouteRootName = $"Route_{objTableModel.TableNameAsTitle}";
+
+                //===================================================================================================================change below
+                //objTableModel.DotNetModelName = objTableModel.TableNameAsTitle;
+
+                List<ColumnModel> objColumnList = new List<ColumnModel>();
+                try {
+                    //Get table attributes
+                    //string strSQLquery = "SELECT table_name,column_name,data_type FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + strTableName + " ' ";
+
+                    StringBuilder sbSQL = new StringBuilder();
+
+                    sbSQL.AppendLine("   SELECT ");
+                    sbSQL.AppendLine("  c.name 'Column_Name', ");
+                    sbSQL.AppendLine("  t.Name 'Data_Type', ");
+                    sbSQL.AppendLine("  c.max_length 'Max_Length', ");
+                    sbSQL.AppendLine("  c.precision , ");
+                    sbSQL.AppendLine("  c.scale , ");
+                    sbSQL.AppendLine("  c.is_nullable, ");
+                    sbSQL.AppendLine("  ISNULL(i.is_primary_key, 0) 'is_primary_key' ");
+                    sbSQL.AppendLine(" FROM     ");
+                    sbSQL.AppendLine("     sys.columns c ");
+                    sbSQL.AppendLine(" INNER JOIN  ");
+                    sbSQL.AppendLine("     sys.types t ON c.user_type_id = t.user_type_id ");
+                    sbSQL.AppendLine(" LEFT OUTER JOIN  ");
+                    sbSQL.AppendLine("     sys.index_columns ic ON ic.object_id = c.object_id AND ic.column_id = c.column_id ");
+                    sbSQL.AppendLine(" LEFT OUTER JOIN  ");
+                    sbSQL.AppendLine("     sys.indexes i ON ic.object_id = i.object_id AND ic.index_id = i.index_id ");
+                    sbSQL.AppendLine(" WHERE ");
+                    sbSQL.AppendLine(" c.object_id = OBJECT_ID('" + item + "." + strTableName + "') ");
+
+                    Database db = new SqlDatabase(SessionUtility.SQL_CONN_STRING);
+                    DbCommand cmd = db.GetSqlStringCommand(sbSQL.ToString());
+                    using (DbConnection cn = db.CreateConnection()) {
+                        cn.Open();
+
+                        using (IDataReader dr = db.ExecuteReader(cmd)) {
+
+
+                            //return dr;
+                            while (dr.Read()) {
+                                ColumnModel objColumn = new ColumnModel();
+                                objColumn = BuildModel(objColumn, dr);
+                                objColumnList.Add(objColumn);
+                            }
+
+                        }
+                    }
+                } catch (Exception ex) {
+                    throw ex;
+                }
+
+                objTableModel.PropetyList.AddRange(objColumnList);
+                if (objColumnList.FindAll(c => c.IsPrimayKey == true).Count > 1) {
+                    objTableModel.HasCompositeKey = true;
+                } else if (objTableModel.PropetyList.Count > 0 && objColumnList.FindAll(c => c.IsPrimayKey == true).Count < 1) {
+                    objTableModel.PropetyList[0].IsPrimayKey = true;
+                } else
+                    objTableModel.HasCompositeKey = false;
+                oList.Add( objTableModel);
             }
-            else if (objTableModel.PropetyList.Count > 0 && objColumnList.FindAll(c => c.IsPrimayKey == true).Count < 1)
-            {
-                objTableModel.PropetyList[0].IsPrimayKey = true;
-            }
-            else
-                objTableModel.HasCompositeKey = false;
-            return objTableModel;
+            return oList;
         }
         private string AddSpacesBeforeUppercaseLetter(string text)
         {
